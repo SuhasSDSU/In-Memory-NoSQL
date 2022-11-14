@@ -1,13 +1,6 @@
 package edu.sdsu.db;
-import java.util.Date;
-import java.util.HashMap;
 
-public class Database implements IDatabase{
-   @Override
-   public boolean put(String key, Object value) {
-      return false;
-   }
-
+public class Cursor implements ICursor{
    @Override
    public void getInt(String key) {
 
@@ -19,12 +12,12 @@ public class Database implements IDatabase{
    }
 
    @Override
-   public void getArray(String key) {
+   public void getString(String key) {
 
    }
 
    @Override
-   public void getString(String key) {
+   public void getArray(String key) {
 
    }
 
@@ -39,7 +32,12 @@ public class Database implements IDatabase{
    }
 
    @Override
-   public void remove(String key) {
+   public void addObserver() {
+
+   }
+
+   @Override
+   public void removeObserver() {
 
    }
 }
