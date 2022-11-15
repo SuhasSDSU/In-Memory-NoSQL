@@ -1,8 +1,8 @@
 package edu.sdsu.db;
-import java.util.Date;
-import java.util.HashMap;
 
 public class Database implements IDatabase{
+   Table collection;
+
    @Override
    public boolean put(String key, Object value) {
       return false;
