@@ -1,45 +1,22 @@
 package edu.sdsu.db;
+import java.util.HashMap;
+import java.util.Map;
+public class Database implements IDatabase {
+   Map<String, Object> collection;
 
-public class Database implements IDatabase{
-   Table collection;
-
+   public Database(){
+      this.collection = new HashMap<>();
+   }
    @Override
-   public boolean put(String key, Object value) {
-      return false;
+   public void put(String key, Object value) {
+      collection.put(key, value);
    }
 
-   @Override
-   public void getInt(String key) {
-
+   public Map<String, Object> getCollection() {
+      return collection;
    }
 
-   @Override
-   public void getDouble(String key) {
-
-   }
-
-   @Override
-   public void getArray(String key) {
-
-   }
-
-   @Override
-   public void getString(String key) {
-
-   }
-
-   @Override
-   public void getObject(String key) {
-
-   }
-
-   @Override
-   public void get(String key) {
-
-   }
-
-   @Override
-   public void remove(String key) {
-
+   public void setCollection(Map<String, Object> collection) {
+      this.collection = collection;
    }
 }
