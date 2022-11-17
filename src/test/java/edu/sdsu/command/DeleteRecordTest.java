@@ -4,9 +4,10 @@ import edu.sdsu.db.Database;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AddRecordTest {
+public class DeleteRecordTest {
    Database db;
    @BeforeEach
    public void init(){
@@ -22,7 +23,7 @@ public class AddRecordTest {
 
    @DisplayName("Check the value using key")
    @Test
-   public void shouldBeTwelve(){
-      assertEquals(12, db.get("Key1"));
+   public void checkDelete(){
+      db.remove("Key1");
    }
 }

@@ -1,6 +1,8 @@
 package edu.sdsu.db;
 import edu.sdsu.commands.AddRecord;
+import edu.sdsu.commands.DeleteRecord;
 import edu.sdsu.commands.ICommand;
+import edu.sdsu.exceptions.NoValueException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,14 +29,13 @@ public class Database implements IDatabase {
       this.commandHistory = new ArrayList<>();
    }
    @Override
-   public void put(String key, Object value) {
-      try{
-         command = new AddRecord( key, value);
-         command.execute(this);
-         commandHistory.add(command);
-      } catch(Exception e){
-         System.out.println(e);
+   public void put(String key, Object value) throws NoValueException{
+      command = new AddRecord( key, value);
+      if(value == null){
+         throw new NoValueException("No Value to enter");
       }
+      command.execute(this);
+      commandHistory.add(command);
    }
    @Override
    public Object get(String key) {
@@ -64,6 +65,12 @@ public class Database implements IDatabase {
    @Override
    public void getObject(String key) {
 
+   }
+
+   @Override
+   public void remove(String key){
+      command = new DeleteRecord(key);
+      command.execute(this);
    }
 
    public String getKey() {

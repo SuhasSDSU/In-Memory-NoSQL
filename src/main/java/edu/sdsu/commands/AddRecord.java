@@ -1,8 +1,6 @@
 package edu.sdsu.commands;
 
 import edu.sdsu.db.Database;
-import edu.sdsu.db.IDatabase;
-
 import java.util.Map;
 
 public class AddRecord implements ICommand{
