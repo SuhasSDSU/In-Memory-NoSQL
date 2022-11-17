@@ -1,5 +1,6 @@
 package edu.sdsu.commands;
 
+import edu.sdsu.dataType.IDataType;
 import edu.sdsu.db.Database;
 import java.util.Map;
 
@@ -13,8 +14,9 @@ public class AddRecord implements ICommand{
    }
    @Override
    public void execute(Database db) {
-      Map<String, Object> temp = db.getCollection();
-      temp.put(getKey(), getValue());
+//      Map<String, Object> temp = db.getCollection();
+      Map<String, IDataType> temp = db.getCollection();
+      temp.put(getKey(), (IDataType) getValue());
    }
 
    @Override

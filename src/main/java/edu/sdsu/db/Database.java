@@ -2,6 +2,7 @@ package edu.sdsu.db;
 import edu.sdsu.commands.AddRecord;
 import edu.sdsu.commands.DeleteRecord;
 import edu.sdsu.commands.ICommand;
+import edu.sdsu.dataType.IDataType;
 import edu.sdsu.exceptions.NoValueException;
 
 import java.util.ArrayList;
@@ -9,7 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 public class Database implements IDatabase {
-   Map<String, Object> collection;
+//   Map<String, Object> collection;
+   Map<String, IDataType> collection;
    String key;
    Object value;
    ICommand command;
@@ -90,11 +92,15 @@ public class Database implements IDatabase {
       this.value = value;
    }
 
-   public Map<String, Object> getCollection() {
+//   public Map<String, Object> getCollection() {
+   public Map<String, IDataType> getCollection() {
       return collection;
    }
 
-   public void setCollection(Map<String, Object> collection) {
-      this.collection = collection;
-   }
+//   public void setCollection(Map<String, Object> collection) {
+//      this.collection = collection;
+//   }
+   public void setCollection(Map<String, IDataType> collection) {
+   this.collection = collection;
+}
 }

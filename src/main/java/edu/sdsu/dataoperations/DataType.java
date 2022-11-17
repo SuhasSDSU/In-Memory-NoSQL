@@ -1,4 +1,4 @@
-package edu.sdsu.data;
+package edu.sdsu.dataoperations;
 
 public interface DataType {
    void getInt();

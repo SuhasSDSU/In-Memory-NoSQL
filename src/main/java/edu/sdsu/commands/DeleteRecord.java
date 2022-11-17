@@ -1,5 +1,6 @@
 package edu.sdsu.commands;
 
+import edu.sdsu.dataType.IDataType;
 import edu.sdsu.db.Database;
 
 import java.util.Arrays;
@@ -14,7 +15,8 @@ public class DeleteRecord implements ICommand{
    }
    @Override
    public void execute(Database db) {
-      Map<String, Object> database = db.getCollection();
+//      Map<String, Object> database = db.getCollection();
+      Map<String, IDataType> database = db.getCollection();
       System.out.println(database.remove(key));
    }
 

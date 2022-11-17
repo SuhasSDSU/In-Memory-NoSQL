@@ -11,6 +11,7 @@ package edu.sdsu;
 
 
 import edu.sdsu.commands.ICommand;
+import edu.sdsu.dataType.IntegerType;
 import edu.sdsu.db.Database;
 import java.util.*;
 
@@ -20,8 +21,8 @@ public class Main {
       db = new Database();
       try{
          db.put("Key1", new int[]{1,2,3});
-         db.put("Key2", new Integer(12));
-         db.put("Key23", new Integer(12));
+         db.put("Key2", new Double(12));
+         db.put("Key23", new IntegerType(12));
       }catch(Exception e){
          e.printStackTrace();
       }

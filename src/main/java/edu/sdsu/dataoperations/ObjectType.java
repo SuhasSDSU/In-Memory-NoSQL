@@ -1,11 +1,10 @@
-package edu.sdsu.data;
+package edu.sdsu.dataoperations;
 
-public class ArrayType implements DataType {
+public class ObjectType implements DataType{
 
-   public void put(Object value){
+   public void put(String key, Object value){
 
    }
-
    @Override
    public void getInt() {
 
