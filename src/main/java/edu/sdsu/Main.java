@@ -26,5 +26,7 @@ public class Main {
       Map<String, Object> data = db.getCollection();
       data.forEach((key, value) -> System.out.println(key+":"+value));
 
+      System.out.println(db.get("key2"));
+
    }
 }

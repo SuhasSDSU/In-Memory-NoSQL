@@ -1,8 +1,11 @@
 package edu.sdsu.db;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+
 
 import java.util.Map;
 
@@ -20,5 +23,11 @@ public class DatabaseTest {
    public void displayData(){
       Map<String, Object> data = db.getCollection();
       data.forEach((key, value) -> System.out.println(key+":"+value));
+   }
+
+   @DisplayName("Get value using Key")
+   @Test
+   public void shouldBeThirteen(){
+      assertEquals("13", db.get("key2"));
    }
 }
