@@ -1,8 +1,9 @@
 package edu.sdsu.commands;
 
+import edu.sdsu.db.Database;
 import edu.sdsu.db.IDatabase;
 
 public interface ICommand {
-   void execute(IDatabase db);
-   void undo(IDatabase db);
+   void execute(Database db);
+   void undo(Database db);
 }

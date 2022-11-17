@@ -10,23 +10,20 @@
 package edu.sdsu;
 
 
+import edu.sdsu.commands.ICommand;
 import edu.sdsu.db.Database;
-
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
    public static void main(String[] args) {
       Database db;
       db = new Database();
-      db.put("Key1", 12);
-      db.put("key2", "13");
-      db.put("key3", new Integer[]{1,2,34});
+      db.put("Key1", new Integer(12));
+      db.put("Key2", new Integer(12));
+      db.put("Key23", new Integer(12));
 
-      Map<String, Object> data = db.getCollection();
-      data.forEach((key, value) -> System.out.println(key+":"+value));
-
-      System.out.println(db.get("key2"));
+      List<ICommand> tempCommands = db.getCommandHistory();
+      tempCommands.forEach((e) -> System.out.println(e) );
 
    }
 }
