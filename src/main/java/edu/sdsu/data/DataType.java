@@ -1,4 +1,10 @@
 package edu.sdsu.data;
 
-public interface DataType<T extends Object> {
+public interface DataType {
+   void getInt();
+   void getDouble();
+   void getString();
+   void getArray();
+   void getObject();
+   String toString();
 }

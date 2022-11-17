@@ -2,7 +2,9 @@ package edu.sdsu.commands;
 
 import edu.sdsu.db.Database;
 
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 
 public class DeleteRecord implements ICommand{
 

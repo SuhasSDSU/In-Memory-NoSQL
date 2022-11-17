@@ -71,6 +71,7 @@ public class Database implements IDatabase {
    public void remove(String key){
       command = new DeleteRecord(key);
       command.execute(this);
+      commandHistory.add(command);
    }
 
    public String getKey() {

@@ -19,24 +19,19 @@ public class Main {
       Database db;
       db = new Database();
       try{
-         db.put("Key1", "null");
+         db.put("Key1", new int[]{1,2,3});
          db.put("Key2", new Integer(12));
          db.put("Key23", new Integer(12));
       }catch(Exception e){
          e.printStackTrace();
       }
-      List<ICommand> tempCommands = db.getCommandHistory();
+      List<ICommand> tempCommands;
 
 
-      db.remove("Key1");
-
-      Map<String, Object> temp = db.getCollection();
-      temp.forEach((key, value) -> System.out.println(key+":"+value));
-
+      db.remove("Key2");
 
       tempCommands = db.getCommandHistory();
-
-      tempCommands.forEach((e) -> System.out.println(e) );
+      tempCommands.forEach(System.out::println);
 
    }
 }
