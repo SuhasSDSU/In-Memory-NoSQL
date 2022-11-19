@@ -11,6 +11,8 @@ package edu.sdsu;
 
 
 import edu.sdsu.commands.ICommand;
+import edu.sdsu.dataType.ArrayType;
+import edu.sdsu.dataType.IDataType;
 import edu.sdsu.db.Database;
 import java.util.*;
 
@@ -19,15 +21,15 @@ public class Main {
       Database db;
       db = new Database();
       try{
-         db.put("Key23", 10);
+         db.put("Key23", new ArrayType("[1,2,3,4]"));
       }catch(Exception e){
          e.printStackTrace();
       }
       List<ICommand> tempCommands;
 
-//      Map<String, IDataType> temp1 = db.getCollection();
-      Map<String, Object> temp1 = db.getCollection();
-      temp1.forEach((key, value) -> System.out.println("key:"+key+":\t"+"value:"+value));
+      Map<String, IDataType> temp1 = db.getCollection();
+//      Map<String, Object> temp1 = db.getCollection();
+      temp1.forEach((key, value) -> System.out.println("key:"+key+":\t"+"value:"+value.getClass()));
 
 
       tempCommands = db.getCommandHistory();

@@ -27,9 +27,9 @@ public class DatabaseTest {
    @DisplayName("Test the contents of Db")
    @Test
    public void displayData(){
-      Map<String, Object> data = db.getCollection();
-//      Map<String, IDataType> data = db.getCollection();
-      data.forEach((key, value) -> System.out.println(key+":"+value));
+//      Map<String, Object> data = db.getCollection();
+      Map<String, IDataType> data = db.getCollection();
+      data.forEach((key, value) -> System.out.println(key+":"+value.getClass()));
    }
 
 }

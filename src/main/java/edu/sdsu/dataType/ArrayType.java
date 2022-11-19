@@ -1,17 +1,19 @@
 package edu.sdsu.dataType;
-
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 public class ArrayType implements IDataType{
+   private String value;
 
-   private Object value;
+   public ArrayType(String value){
+      this.value = value;
+   }
 
-   public ArrayType(Object value){
+   public Object getValue() {
+      return value;
+   }
+
+   public void setValue(String value) {
       this.value = value;
    }
    @Override
@@ -39,25 +41,12 @@ public class ArrayType implements IDataType{
       return this.value;
    }
 
-   /**
-    * Would convert the data as per the given constraint
-    */
-
-   private void fromString(){
-      ObjectMapper mapper = new ObjectMapper();
-      try {
-         this.value = mapper.readValue((JsonParser) this.value, Object[].class);
-      } catch (JsonProcessingException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      } catch (IOException e) {
-         throw new RuntimeException(e);
-      }
+   public String toString(){
+      return Objects.toString(this.value);
    }
 
-   public String toString(){
-      fromString();
-      return Objects.toString(this.value);
+   public void fromString(String value) throws Exception{
+      setValue(value);
    }
 
 }
