@@ -10,8 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 public class Database implements IDatabase {
-   Map<String, IDataType> collection;
-//   Map<String, Object> collection;
+//   Map<String, IDataType> collection;
+   Map<String, Object> collection;
    String key;
    Object value;
    ICommand command;
@@ -32,9 +32,9 @@ public class Database implements IDatabase {
    }
 
    @Override
-//   public void put(String key, Object value) throws NoValueException{
+   public void put(String key, Object value) throws NoValueException{
 
-   public void put(String key, IDataType value) throws NoValueException{
+//   public void put(String key, IDataType value) throws NoValueException{
       command = new AddRecord( key, value);
       if(value == null){
          throw new NoValueException("No Value to enter in database");
@@ -95,8 +95,8 @@ public class Database implements IDatabase {
       this.value = value;
    }
 
-//   public Map<String, Object> getCollection() {
-   public Map<String, IDataType> getCollection() {
+   public Map<String, Object> getCollection() {
+//   public Map<String, IDataType> getCollection() {
       return collection;
    }
 

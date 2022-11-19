@@ -1,52 +1,36 @@
 package edu.sdsu.dataType;
-import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Objects;
 
-public class ArrayType implements IDataType{
-   private String value;
+public class ArrayType{
+   private Object value;
 
-   public ArrayType(String value){
+   public ArrayType(){
+
+   }
+
+   public ArrayType(Object value){
       this.value = value;
    }
-
-   public Object getValue() {
-      return value;
-   }
-
-   public void setValue(String value) {
-      this.value = value;
-   }
-   @Override
-   public Integer getInt() {
-      return 0;
-   }
-
-   @Override
-   public Double getDouble() {
-      return 0.0;
-   }
-
-   @Override
-   public String getString() {
-      return "";
-   }
-
-   @Override
-   public List<Object> getArray() {
-      return null;
-   }
-
-   @Override
-   public Object getObject() {
-      return this.value;
-   }
-
    public String toString(){
       return Objects.toString(this.value);
    }
 
-   public void fromString(String value) throws Exception{
-      setValue(value);
+   public static Object fromString(Object value) throws Exception{
+      ObjectMapper mapper = new ObjectMapper();
+//      try {
+
+      value = mapper.readValue((String) value, Object[].class);
+
+
+//      } catch (JsonProcessingException e) {
+//         // TODO Auto-generated catch block
+//         e.printStackTrace();
+//      } catch (IOException e) {
+//         throw new RuntimeException(e);
+//      }
+
+      return value;
    }
 
 }

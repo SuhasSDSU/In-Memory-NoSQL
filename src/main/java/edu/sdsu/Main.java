@@ -21,14 +21,15 @@ public class Main {
       Database db;
       db = new Database();
       try{
-         db.put("Key23", new ArrayType("[1,2,3,4]"));
+         db.put("Key23",  new ArrayType().fromString("[1,2,3,4]"));
+
       }catch(Exception e){
          e.printStackTrace();
       }
       List<ICommand> tempCommands;
 
-      Map<String, IDataType> temp1 = db.getCollection();
-//      Map<String, Object> temp1 = db.getCollection();
+//      Map<String, IDataType> temp1 = db.getCollection();
+      Map<String, Object> temp1 = db.getCollection();
       temp1.forEach((key, value) -> System.out.println("key:"+key+":\t"+"value:"+value.getClass()));
 
 
