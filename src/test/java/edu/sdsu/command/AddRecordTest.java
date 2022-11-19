@@ -12,9 +12,9 @@ public class AddRecordTest {
    public void init(){
       db = new Database();
       try{
-         db.put("Key1", 12);
-         db.put("key2", "13");
-         db.put("key3", new Integer[]{1,2,34});
+//         db.put("Key1", 12);
+//         db.put("key2", "13");
+//         db.put("key3", new Integer[]{1,2,34});
       } catch (Exception e){
          e.printStackTrace();
       }

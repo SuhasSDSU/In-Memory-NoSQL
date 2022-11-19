@@ -11,7 +11,6 @@ package edu.sdsu;
 
 
 import edu.sdsu.commands.ICommand;
-import edu.sdsu.dataType.IntegerType;
 import edu.sdsu.db.Database;
 import java.util.*;
 
@@ -20,16 +19,16 @@ public class Main {
       Database db;
       db = new Database();
       try{
-         db.put("Key1", new int[]{1,2,3});
-         db.put("Key2", new Double(12));
-         db.put("Key23", new IntegerType(12));
+         db.put("Key23", 10);
       }catch(Exception e){
          e.printStackTrace();
       }
       List<ICommand> tempCommands;
 
+//      Map<String, IDataType> temp1 = db.getCollection();
+      Map<String, Object> temp1 = db.getCollection();
+      temp1.forEach((key, value) -> System.out.println("key:"+key+":\t"+"value:"+value));
 
-      db.remove("Key2");
 
       tempCommands = db.getCommandHistory();
       tempCommands.forEach(System.out::println);

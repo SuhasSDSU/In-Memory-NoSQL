@@ -4,13 +4,13 @@ import java.util.List;
 
 public class IntegerType implements IDataType{
 
-   private Object value;
-   public IntegerType(Object value){
+   private Integer value;
+   public IntegerType(int value){
       this.value = value;
    }
    @Override
    public Integer getInt() {
-      return (Integer) this.value;
+      return this.value;
    }
 
    @Override
@@ -30,6 +30,10 @@ public class IntegerType implements IDataType{
 
    @Override
    public Object getObject() {
-      return this.value;
+      return null;
+   }
+
+   public String toString(){
+      return String.valueOf(this.value);
    }
 }

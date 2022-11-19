@@ -8,15 +8,17 @@ public class AddRecord implements ICommand{
 
    private String key;
    private Object value;
+//   private IDataType value;
    public AddRecord(String key, Object value){
+//   public AddRecord(String key, IDataType value){
       this.key = key;
       this.value = value;
    }
    @Override
    public void execute(Database db) {
-//      Map<String, Object> temp = db.getCollection();
-      Map<String, IDataType> temp = db.getCollection();
-      temp.put(getKey(), (IDataType) getValue());
+      Map<String, Object> temp = db.getCollection();
+//      Map<String, IDataType> temp = db.getCollection();
+      temp.put(getKey(),  getValue());
    }
 
    @Override
@@ -33,10 +35,12 @@ public class AddRecord implements ICommand{
    }
 
    public Object getValue() {
+//   public IDataType getValue() {
       return value;
    }
 
-   public void setValue(Object value) {
+//   public void setValue(Object value) {
+   public void setValue(IDataType value) {
       this.value = value;
    }
 }
