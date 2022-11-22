@@ -30,10 +30,10 @@ public class Database implements IDatabase {
 
    @Override
    public void put(String key, Object value) throws NoValueException{
-      command = new AddRecord( key, value);
       if(value == null){
          throw new NoValueException("No Value to enter in database");
       }
+      command = new AddRecord( key, value);
       command.execute(this);
       commandHistory.add(command);
    }
@@ -59,10 +59,7 @@ public class Database implements IDatabase {
 
    @Override
    public ArrayType getArray(String key) {
-      return (ArrayType) collection.get(key);
-      /**
-       * Change this part and we are done with the major work
-       */
+      return new ArrayType((List<Object>) collection.get(key));
    }
 
    @Override
