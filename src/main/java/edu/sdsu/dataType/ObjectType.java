@@ -1,27 +1,29 @@
 package edu.sdsu.dataType;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.Arrays;
-import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ObjectType {
    private Object value;
-   public ObjectType(Object value){
-      this.value = value;
-   }
 
-   public static Object fromString(String value) throws JsonMappingException, JsonProcessingException {
-      ObjectMapper mapper = new ObjectMapper();
-      List<Object> jsonObject = Arrays.asList(mapper.readValue(value, Object.class));
-      return jsonObject;
+   private static Map<String, Object> objects;
+
+   public ObjectType(){}
+   public ObjectType(Map<String, Object> map){
+      objects = map;
+   }
+   public ObjectType(Object value) {
+      this.value = value;
+      this.objects = new HashMap<>();
    }
 
    public void put(String key, Object value){
-
+      objects.put(key, value);
    }
 
    public Integer getInteger(String key){
@@ -41,7 +43,7 @@ public class ObjectType {
    }
 
    public Object getObject(String key){
-      return null;
+      return objects.get(key);
    }
 
    public int length(){
@@ -50,6 +52,24 @@ public class ObjectType {
 
    @Override
    public String toString(){
-      return this.value.toString();
+      String mapAsString = objects.keySet().stream()
+            .map(key -> key + "=" + objects.get(key))
+            .collect(Collectors.joining(", ", "{", "}"));
+      return mapAsString;
    }
+
+   /**
+    * Might need to change here
+    * @param value
+    * @return
+    * @throws JsonProcessingException
+    */
+   public static Object fromString(String value) throws JsonProcessingException {
+      ObjectMapper mapper = new ObjectMapper();
+      Map<String, Object> jsonObject = mapper.readValue(value, Map.class);
+      objects = jsonObject;
+      return objects;
+   }
+
+
 }

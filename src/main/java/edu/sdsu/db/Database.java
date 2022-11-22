@@ -3,6 +3,7 @@ import edu.sdsu.commands.AddRecord;
 import edu.sdsu.commands.DeleteRecord;
 import edu.sdsu.commands.ICommand;
 import edu.sdsu.dataType.ArrayType;
+import edu.sdsu.dataType.ObjectType;
 import edu.sdsu.exceptions.NoValueException;
 
 import java.util.*;
@@ -63,8 +64,9 @@ public class Database implements IDatabase {
    }
 
    @Override
-   public Object getObject(String key) {
-      return this.collection.get(key);
+   public ObjectType getObject(String key) {
+      return new ObjectType(collection.get(key));
+      // Might need to change here
    }
 
    @Override

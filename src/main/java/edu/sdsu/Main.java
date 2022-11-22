@@ -13,6 +13,7 @@ package edu.sdsu;
 import edu.sdsu.commands.ICommand;
 import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.dataType.IDataType;
+import edu.sdsu.dataType.ObjectType;
 import edu.sdsu.db.Database;
 import java.util.*;
 
@@ -24,6 +25,9 @@ public class Main {
       try{
          db.put("Key23",  new ArrayType().fromString("[1,2,3,4]"));
          db.put("Arr", new ArrayType().fromString("[321,2,1]"));
+         db.put("Object", new ObjectType().fromString("{\"name\":\"Test\", \"age\":\"26\"}"));
+         db.getObject("Object").put("New", new ObjectType().fromString("{\"name\":\"Suhas\", \"age\":\"23\"}"));
+
       }catch(Exception e){
          e.printStackTrace();
       }
