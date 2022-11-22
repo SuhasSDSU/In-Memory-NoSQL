@@ -20,14 +20,15 @@ public class Main {
    public static void main(String[] args) {
       Database db;
       db = new Database();
+      Map<String, Object> temp1 = db.getCollection();
       try{
          db.put("Key23",  new ArrayType().fromString("[1,2,3,4]"));
+         db.put("Arr", new ArrayType().fromString("[321,2,1]"));
       }catch(Exception e){
          e.printStackTrace();
       }
       List<ICommand> tempCommands;
 
-      Map<String, Object> temp1 = db.getCollection();
       temp1.forEach((key, value) -> System.out.println("key:"+key+":\t"+"value:"+value));
 
 

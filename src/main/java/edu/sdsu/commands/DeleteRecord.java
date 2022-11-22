@@ -31,6 +31,7 @@ public class DeleteRecord implements ICommand{
    @Override
    public void execute(Database db) {
       Map<String, Object> database = db.getCollection();
+      database.remove(key);
       setKey(this.key);
       setValue(database.remove(key));
    }
