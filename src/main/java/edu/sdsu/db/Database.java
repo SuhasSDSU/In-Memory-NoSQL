@@ -2,15 +2,12 @@ package edu.sdsu.db;
 import edu.sdsu.commands.AddRecord;
 import edu.sdsu.commands.DeleteRecord;
 import edu.sdsu.commands.ICommand;
-import edu.sdsu.dataType.IDataType;
+import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.exceptions.NoValueException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 public class Database implements IDatabase {
-//   Map<String, IDataType> collection;
    Map<String, Object> collection;
    String key;
    Object value;
@@ -33,8 +30,6 @@ public class Database implements IDatabase {
 
    @Override
    public void put(String key, Object value) throws NoValueException{
-
-//   public void put(String key, IDataType value) throws NoValueException{
       command = new AddRecord( key, value);
       if(value == null){
          throw new NoValueException("No Value to enter in database");
@@ -48,28 +43,31 @@ public class Database implements IDatabase {
    }
 
    @Override
-   public void getInt(String key) {
-
+   public Integer getInt(String key) {
+      return (Integer) this.collection.get(key);
    }
 
    @Override
-   public void getDouble(String key) {
-
+   public Double getDouble(String key) {
+      return (Double) this.collection.get(key);
    }
 
    @Override
-   public void getString(String key) {
-
+   public String getString(String key) {
+      return "";
    }
 
    @Override
-   public void getArray(String key) {
-
+   public ArrayType getArray(String key) {
+      return (ArrayType) collection.get(key);
+      /**
+       * Change this part and we are done with the major work
+       */
    }
 
    @Override
-   public void getObject(String key) {
-
+   public Object getObject(String key) {
+      return this.collection.get(key);
    }
 
    @Override
@@ -77,14 +75,6 @@ public class Database implements IDatabase {
       command = new DeleteRecord(key);
       command.execute(this);
       commandHistory.add(command);
-   }
-
-   public String getKey() {
-      return key;
-   }
-
-   public void setKey(String key) {
-      this.key = key;
    }
 
    public Object getValue() {
@@ -96,7 +86,6 @@ public class Database implements IDatabase {
    }
 
    public Map<String, Object> getCollection() {
-//   public Map<String, IDataType> getCollection() {
       return collection;
    }
 

@@ -22,6 +22,7 @@ public class Main {
       db = new Database();
       try{
          db.put("Key23",  new ArrayType().fromString("[1,2,3,4]"));
+         db.getArray("Key23").put("1");
 
       }catch(Exception e){
          e.printStackTrace();
