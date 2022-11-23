@@ -3,14 +3,14 @@ package edu.sdsu.commands;
 import edu.sdsu.db.Database;
 import java.util.Map;
 
-public class AddRecord implements ICommand{
+public class Insertion implements ICommand{
    private String key;
    private Object value;
 
-   public AddRecord(){
+   public Insertion(){
       // for initialization purpose
    }
-   public AddRecord(String key, Object value){
+   public Insertion(String key, Object value){
       this.key = key;
       this.value = value;
    }

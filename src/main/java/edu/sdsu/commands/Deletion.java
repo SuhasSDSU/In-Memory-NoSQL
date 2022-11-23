@@ -1,10 +1,9 @@
 package edu.sdsu.commands;
 
-import edu.sdsu.dataType.IDataType;
 import edu.sdsu.db.Database;
 import java.util.Map;
 
-public class DeleteRecord implements ICommand{
+public class Deletion implements ICommand{
 
    private Object value;
 
@@ -25,7 +24,7 @@ public class DeleteRecord implements ICommand{
    }
 
    private String key;
-   public DeleteRecord(String key){
+   public Deletion(String key){
       this.key = key;
    }
    @Override
@@ -38,7 +37,6 @@ public class DeleteRecord implements ICommand{
 
    @Override
    public void undo(Database db) {
-      Map<String, Object> database = db.getCollection();
       db.put(getKey(), getValue());
    }
 }

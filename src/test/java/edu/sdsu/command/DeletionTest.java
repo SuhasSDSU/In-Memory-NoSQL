@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DeleteRecordTest {
+public class DeletionTest {
    Database db;
    @BeforeEach
    public void init(){

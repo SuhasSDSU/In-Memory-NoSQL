@@ -1,6 +1,6 @@
 package edu.sdsu.db;
-import edu.sdsu.commands.AddRecord;
-import edu.sdsu.commands.DeleteRecord;
+import edu.sdsu.commands.Insertion;
+import edu.sdsu.commands.Deletion;
 import edu.sdsu.commands.ICommand;
 import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.dataType.ObjectType;
@@ -34,7 +34,7 @@ public class Database implements IDatabase {
       if(value == null){
          throw new NoValueException("No Value to enter in database");
       }
-      command = new AddRecord( key, value);
+      command = new Insertion( key, value);
       command.execute(this);
       commandHistory.add(command);
    }
@@ -70,7 +70,7 @@ public class Database implements IDatabase {
 
    @Override
    public void remove(String key){
-      command = new DeleteRecord(key);
+      command = new Deletion(key);
       command.execute(this);
       commandHistory.add(command);
    }

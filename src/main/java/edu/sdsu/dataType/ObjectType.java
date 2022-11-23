@@ -44,6 +44,11 @@ public class ObjectType {
       return null;
    }
 
+   /**
+    * Check this part of the function
+    * @param key
+    * @return
+    */
    public Object getObject(String key){
       return objects.get(key);
    }

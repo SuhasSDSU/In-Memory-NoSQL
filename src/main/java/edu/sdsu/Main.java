@@ -23,13 +23,11 @@ public class Main {
       db = new Database();
 
       try{
-//         db.put("Key23",  new ArrayType().fromString("[1,2,3,\"Testing\"]"));
-//         db.put("Arr", new ArrayType().fromString("[321,2,1]"));
-//         db.getArray("Arr").put( new ArrayType().fromString("[\"{ \\\"color\\\" : \\\"Black\\\", \\\"type\\\" : \\\"BMW\\\" }\"]"));
+         db.put("Arr", new ArrayType().fromString("[321,2,1]"));
+         db.getArray("Arr").put( new ObjectType().fromString("{ \"Name\" : \"Suhas\", \"Age\" : \"26\" }"));
          db.put("Object", new ObjectType().fromString("{ \"color\" : \"Black\", \"type\" : \"BMW\" }"));
-
-
          db.getObject("Object").put("NewObject", new ObjectType().fromString("{ \"color\" : \"Test\", \"type\" : \"Testing\" }"));
+         db.getObject("Object").put("new ArrayT", new ArrayType().fromString("[321,2,1]"));
       }catch(Exception e){
          e.printStackTrace();
       }
