@@ -1,20 +1,22 @@
 package edu.sdsu.dataType;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.sdsu.commands.AddRecord;
+import edu.sdsu.commands.ICommand;
+import edu.sdsu.exceptions.NoValueException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ArrayType {
-   private static List<Object> listOfValues;
+   private List<Object> listOfValues;
    private Object value;
+   private ICommand command;
    public ArrayType(){
       listOfValues = new ArrayList<>();
-   }
-   public ArrayType(Object value){
-      this.value = value;
    }
    public ArrayType(List<Object> list){
       this.listOfValues = list;
@@ -24,13 +26,15 @@ public class ArrayType {
    }
    public static Object fromString(String value) throws JsonMappingException, JsonProcessingException {
       ObjectMapper mapper = new ObjectMapper();
-      List<Object> jsonObject = (mapper.readValue(value, List.class));
-      listOfValues = jsonObject;
-      return listOfValues;
+      List<Object> jsonObject = mapper.readValue(value, new TypeReference<List<Object>>(){});
+      return jsonObject;
    }
 
-   public void put(Object value){
-      listOfValues.add(value);
+   public void put(Object value) throws NoValueException{
+      if(value == null){
+         throw new NoValueException("No Value to enter in database");
+      }
+      this.listOfValues.add(value);
    }
    public Integer getInt(Integer index) {
       return (Integer) listOfValues.get(index);
@@ -50,6 +54,11 @@ public class ArrayType {
    }
    @Override
    public String toString(){
-      return Arrays.toString(this.listOfValues.toArray());
+      Object[] result = listOfValues.toArray();
+      return Arrays.toString(result);
+   }
+
+   public void setListOfValues(List<Object> listOfValues) {
+      this.listOfValues = listOfValues;
    }
 }

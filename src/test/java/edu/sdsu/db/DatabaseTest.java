@@ -16,6 +16,7 @@ public class DatabaseTest {
       try {
          db.put("key3", new Integer(13));
          db.put("Array1", new ArrayType().fromString("[1,2,3.0,6]"));
+         db.getArray("Array1").put(new ArrayType().fromString("[1,2,3.0,6]"));
       }catch (Exception e){
          e.printStackTrace();
       }

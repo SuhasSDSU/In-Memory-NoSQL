@@ -1,29 +1,31 @@
 package edu.sdsu.dataType;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.lang.System.*;
+
 public class ObjectType {
-   private Object value;
+   private Object values;
 
-   private static Map<String, Object> objects;
+   private Map<String, Object> objects;
 
-   public ObjectType(){}
-   public ObjectType(Map<String, Object> map){
-      objects = map;
-   }
-   public ObjectType(Object value) {
-      this.value = value;
+   public ObjectType(){
       this.objects = new HashMap<>();
    }
-
-   public void put(String key, Object value){
-      objects.put(key, value);
+   public ObjectType(Map<String, Object> map){
+      this.objects = map;
+   }
+   public ObjectType(Object value) {
+      this.values = value;
+      this.objects = new HashMap<>();
    }
 
    public Integer getInteger(String key){
@@ -58,17 +60,16 @@ public class ObjectType {
       return mapAsString;
    }
 
-   /**
-    * Might need to change here
-    * @param value
-    * @return
-    * @throws JsonProcessingException
-    */
    public static Object fromString(String value) throws JsonProcessingException {
       ObjectMapper mapper = new ObjectMapper();
-      Map<String, Object> jsonObject = mapper.readValue(value, Map.class);
-      objects = jsonObject;
-      return objects;
+      Map<String, Object> jsonObject = mapper.readValue(value, new TypeReference<Map<String,Object>>(){});
+//      Object jsonObject = mapper.readValue(value, Object.class);
+      jsonObject.forEach((key, val)-> out.println("key:"+key+"\t value:"+val));
+      return jsonObject;
+   }
+
+   public void put(String key, Object value){
+      objects.put(key, value);
    }
 
 

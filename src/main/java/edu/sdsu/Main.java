@@ -21,18 +21,21 @@ public class Main {
    public static void main(String[] args) {
       Database db;
       db = new Database();
-      Map<String, Object> temp1 = db.getCollection();
-      try{
-         db.put("Key23",  new ArrayType().fromString("[1,2,3,4]"));
-         db.put("Arr", new ArrayType().fromString("[321,2,1]"));
-         db.put("Object", new ObjectType().fromString("{\"name\":\"Test\", \"age\":\"26\"}"));
-         db.getObject("Object").put("New", new ObjectType().fromString("{\"name\":\"Suhas\", \"age\":\"23\"}"));
 
+      try{
+//         db.put("Key23",  new ArrayType().fromString("[1,2,3,\"Testing\"]"));
+//         db.put("Arr", new ArrayType().fromString("[321,2,1]"));
+//         db.getArray("Arr").put( new ArrayType().fromString("[\"{ \\\"color\\\" : \\\"Black\\\", \\\"type\\\" : \\\"BMW\\\" }\"]"));
+         db.put("Object", new ObjectType().fromString("{ \"color\" : \"Black\", \"type\" : \"BMW\" }"));
+
+
+         db.getObject("Object").put("NewObject", new ObjectType().fromString("{ \"color\" : \"Test\", \"type\" : \"Testing\" }"));
       }catch(Exception e){
          e.printStackTrace();
       }
       List<ICommand> tempCommands;
 
+      Map<String, Object> temp1 = db.getCollection();
       temp1.forEach((key, value) -> System.out.println("key:"+key+":\t"+"value:"+value));
 
 

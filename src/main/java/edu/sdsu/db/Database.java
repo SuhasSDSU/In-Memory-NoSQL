@@ -60,13 +60,12 @@ public class Database implements IDatabase {
 
    @Override
    public ArrayType getArray(String key) {
-      return new ArrayType((List<Object>) collection.get(key));
+      return new ArrayType((List<Object>) this.collection.get(key));
    }
 
    @Override
    public ObjectType getObject(String key) {
-      return new ObjectType(collection.get(key));
-      // Might need to change here
+      return new ObjectType((Map<String, Object>)this.collection.get(key));
    }
 
    @Override

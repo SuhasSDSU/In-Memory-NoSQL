@@ -6,14 +6,15 @@ import java.util.Map;
 public class AddRecord implements ICommand{
    private String key;
    private Object value;
+
+   public AddRecord(){
+      // for initialization purpose
+   }
    public AddRecord(String key, Object value){
       this.key = key;
       this.value = value;
    }
 
-   public AddRecord(Object value){
-      this.value = value;
-   }
    @Override
    public void execute(Database db) {
       Map<String, Object> dbCollection = db.getCollection();
