@@ -5,12 +5,12 @@ import edu.sdsu.commands.ICommand;
 import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.dataType.ObjectType;
 import edu.sdsu.exceptions.NoValueException;
+import edu.sdsu.exceptions.WrongDataType;
 
 import java.util.*;
 
 public class Database implements IDatabase {
    Map<String, Object> collection;
-   String key;
    Object value;
    ICommand command;
 
@@ -20,23 +20,20 @@ public class Database implements IDatabase {
       return commandHistory;
    }
 
-   public void setCommandHistory(List<ICommand> commandHistory) {
-      this.commandHistory = commandHistory;
-   }
-
    public Database(){
       this.collection = new HashMap<>();
       this.commandHistory = new ArrayList<>();
    }
-
    @Override
-   public void put(String key, Object value) throws NoValueException{
-      if(value == null){
+   public Database put(String key, Object value) throws NoValueException{
+      if(value == null) {
          throw new NoValueException("No Value to enter in database");
+      } else {
+         command = new Insertion(key, value);
+         commandHistory.add(command);
+         command.execute(this);
       }
-      command = new Insertion( key, value);
-      command.execute(this);
-      commandHistory.add(command);
+      return this;
    }
    @Override
    public Object get(String key) {
@@ -44,40 +41,54 @@ public class Database implements IDatabase {
    }
 
    @Override
-   public Integer getInt(String key) {
+   public Integer getInt(String key) throws WrongDataType {
+      if(!(this.collection.get(key).getClass().getSimpleName().equals("Integer"))){
+         throw new WrongDataType("This is not Integer");
+      }
       return (Integer) this.collection.get(key);
    }
 
    @Override
    public Double getDouble(String key) {
+      if(!(this.collection.get(key).getClass().getSimpleName().equals("Double"))){
+         throw new WrongDataType("This is not Double");
+      }
       return (Double) this.collection.get(key);
    }
 
    @Override
    public String getString(String key) {
-      return "";
+      if(!(this.collection.get(key).getClass().getSimpleName().equals("String"))){
+         throw new WrongDataType("This is not String");
+      }
+      return (String) this.collection.get(key);
    }
 
    @Override
    public ArrayType getArray(String key) {
+      if((this.collection.get(key).getClass().getSimpleName().equals("ArrayList")) == false){
+         throw new WrongDataType("This is not ArrayType");
+      }
       return new ArrayType((List<Object>) this.collection.get(key));
    }
 
    @Override
    public ObjectType getObject(String key) {
+      boolean ObjectComparator = this.collection.get(key).getClass().getSimpleName().equals("Object");
+      boolean MapComparator = this.collection.get(key).getClass().getSimpleName().equals("LinkedHashMap");
+      if(! (ObjectComparator || MapComparator)){
+         throw new WrongDataType("This is not ObjectType");
+      }
       return new ObjectType((Map<String, Object>)this.collection.get(key));
    }
 
    @Override
-   public void remove(String key){
+   public Object remove(String key){
       command = new Deletion(key);
-      command.execute(this);
       commandHistory.add(command);
+      return command.execute(this);
    }
 
-   public Object getValue() {
-      return value;
-   }
 
    public void setValue(Object value) {
       this.value = value;
@@ -85,6 +96,10 @@ public class Database implements IDatabase {
 
    public Map<String, Object> getCollection() {
       return collection;
+   }
+
+   public Transaction getTransaction(){
+      return new Transaction(this);
    }
 
 }

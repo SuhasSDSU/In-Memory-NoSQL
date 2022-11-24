@@ -3,19 +3,26 @@ package edu.sdsu.dataType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.sdsu.commands.Deletion;
+import edu.sdsu.commands.ICommand;
+import edu.sdsu.commands.Insertion;
+import edu.sdsu.db.Database;
+import edu.sdsu.exceptions.WrongDataType;
 
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static java.lang.System.*;
 
 public class ObjectType {
-   private Object values;
-
+   private static String key;
+   private static Database dbRef;
    private Map<String, Object> objects;
+
+   public Map<String, Object> getObjects() {
+      return objects;
+   }
 
    public ObjectType(){
       this.objects = new HashMap<>();
@@ -23,33 +30,45 @@ public class ObjectType {
    public ObjectType(Map<String, Object> map){
       this.objects = map;
    }
-   public ObjectType(Object value) {
-      this.values = value;
-      this.objects = new HashMap<>();
+
+   public ObjectType(Database db, String key){
+      this.key = key;
+      dbRef = db;
    }
 
    public Integer getInteger(String key){
-      return 0;
+      if(!(objects.get(key).getClass().getSimpleName().equals("Integer"))){
+         throw new WrongDataType("This is not Integer");
+      }
+      return (Integer) objects.get(key);
    }
 
    public Double getDouble(String key){
-      return 0.0;
+      if(!(objects.get(key).getClass().getSimpleName().equals("Double"))){
+         throw new WrongDataType("This is not Double");
+      }
+      return (Double) objects.get(key);
    }
 
    public String getString(String key) {
-      return "";
+      if(!(objects.get(key).getClass().getSimpleName().equals("String"))){
+         throw new WrongDataType("This is not String");
+      }
+      return (String) objects.get(key);
    }
 
-   public ArrayType getArray(String key){
-      return null;
+   public Object getArray(String key){
+      if((this.objects.get(key).getClass().getSimpleName().equals("ArrayList")) == false){
+         throw new WrongDataType("This is not ArrayType");
+      }
+      return objects.get(key);
    }
-
-   /**
-    * Check this part of the function
-    * @param key
-    * @return
-    */
    public Object getObject(String key){
+      boolean ObjectComparator = this.objects.get(key).getClass().getSimpleName().equals("Object");
+      boolean MapComparator = this.objects.get(key).getClass().getSimpleName().equals("LinkedHashMap");
+      if(! (ObjectComparator || MapComparator)){
+         throw new WrongDataType("This is not ObjectType");
+      }
       return objects.get(key);
    }
 
@@ -60,7 +79,7 @@ public class ObjectType {
    @Override
    public String toString(){
       String mapAsString = objects.keySet().stream()
-            .map(key -> key + "=" + objects.get(key))
+            .map(key -> key + ":" + objects.get(key))
             .collect(Collectors.joining(", ", "{", "}"));
       return mapAsString;
    }
@@ -68,14 +87,20 @@ public class ObjectType {
    public static Object fromString(String value) throws JsonProcessingException {
       ObjectMapper mapper = new ObjectMapper();
       Map<String, Object> jsonObject = mapper.readValue(value, new TypeReference<Map<String,Object>>(){});
-//      Object jsonObject = mapper.readValue(value, Object.class);
-      jsonObject.forEach((key, val)-> out.println("key:"+key+"\t value:"+val));
       return jsonObject;
    }
 
-   public void put(String key, Object value){
+   public Object put(String key, Object value){
       objects.put(key, value);
+      ICommand command = new Insertion(this.key, getObjects());
+      dbRef.getCommandHistory().add(command);
+      return command.execute(dbRef);
    }
 
+   public Object remove(String key){
+      ICommand command = new Deletion(key);
+      dbRef.getCommandHistory().add(command);
+      return command.execute(this.dbRef);
+   }
 
 }

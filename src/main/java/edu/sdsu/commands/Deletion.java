@@ -15,28 +15,35 @@ public class Deletion implements ICommand{
       this.value = value;
    }
 
-   public String getKey() {
+   public Object getKey() {
       return key;
    }
 
-   public void setKey(String key) {
+   public void setKey(Object key) {
       this.key = key;
    }
-
-   private String key;
-   public Deletion(String key){
+   private Object key;
+   public Deletion(Object key){
       this.key = key;
    }
    @Override
-   public void execute(Database db) {
+   public Object execute(Database db) {
       Map<String, Object> database = db.getCollection();
-      database.remove(key);
-      setKey(this.key);
-      setValue(database.remove(key));
+      setKey(String.valueOf(this.key));
+      setValue(database);
+      if(database.get(String.valueOf(key)) == null){
+         undo(db);
+      }
+      return database.remove(String.valueOf(key));
    }
 
    @Override
    public void undo(Database db) {
-      db.put(getKey(), getValue());
+      db.put(getKey().toString(), getValue());
+   }
+
+   @Override
+   public String toString() {
+      return "Deletion";
    }
 }

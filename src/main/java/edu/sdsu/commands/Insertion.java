@@ -16,9 +16,10 @@ public class Insertion implements ICommand{
    }
 
    @Override
-   public void execute(Database db) {
+   public Object execute(Database db) {
       Map<String, Object> dbCollection = db.getCollection();
-      dbCollection.put(getKey(),  getValue());
+      System.out.println(getKey());
+      return dbCollection.put(getKey(),  getValue());
    }
 
    @Override
@@ -41,5 +42,10 @@ public class Insertion implements ICommand{
 
    public void setValue(Object value) {
       this.value = value;
+   }
+
+   @Override
+   public String toString() {
+      return "Insertion";
    }
 }

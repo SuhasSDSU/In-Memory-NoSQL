@@ -4,8 +4,7 @@ import edu.sdsu.exceptions.NoValueException;
 
 //public interface IDatabase<T extends Object> {
 public interface IDatabase {
-//   void put(String key, IDataType value) throws NoValueException;
-   void put(String key, Object value) throws NoValueException;
+   Database put(String key, Object value) throws NoValueException;
    Object get(String key);
    Integer getInt(String key);
    Double getDouble(String key);
@@ -13,5 +12,5 @@ public interface IDatabase {
    Object getArray(String key);
    Object getObject(String key);
 
-   void remove(String key);
+   Object remove(String key);
 }

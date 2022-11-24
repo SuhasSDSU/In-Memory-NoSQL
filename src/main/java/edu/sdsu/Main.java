@@ -12,9 +12,10 @@ package edu.sdsu;
 
 import edu.sdsu.commands.ICommand;
 import edu.sdsu.dataType.ArrayType;
-import edu.sdsu.dataType.IDataType;
 import edu.sdsu.dataType.ObjectType;
 import edu.sdsu.db.Database;
+import edu.sdsu.db.Transaction;
+
 import java.util.*;
 
 public class Main {
@@ -24,21 +25,19 @@ public class Main {
 
       try{
          db.put("Arr", new ArrayType().fromString("[321,2,1]"));
+         db.getArray("Arr").put( new ArrayType("Arr", db).fromString("[321,\"Testing\",1]"));
          db.getArray("Arr").put( new ObjectType().fromString("{ \"Name\" : \"Suhas\", \"Age\" : \"26\" }"));
+
          db.put("Object", new ObjectType().fromString("{ \"color\" : \"Black\", \"type\" : \"BMW\" }"));
-         db.getObject("Object").put("NewObject", new ObjectType().fromString("{ \"color\" : \"Test\", \"type\" : \"Testing\" }"));
-         db.getObject("Object").put("new ArrayT", new ArrayType().fromString("[321,2,1]"));
+         db.getObject("Object").put("NewObject", new ObjectType(db, "Object" ).fromString("{ \"color\" : \"Test\", \"type\" : \"Testing\" }"));
       }catch(Exception e){
          e.printStackTrace();
       }
-      List<ICommand> tempCommands;
+      Map<String, Object> test = db.getCollection();
+      test.forEach((k, v) -> System.out.println(k+"\t" + v));
 
-      Map<String, Object> temp1 = db.getCollection();
-      temp1.forEach((key, value) -> System.out.println("key:"+key+":\t"+"value:"+value));
+      List<ICommand> commandsList = db.getCommandHistory();
 
-
-      tempCommands = db.getCommandHistory();
-      tempCommands.forEach(System.out::println);
-
+      commandsList.forEach(e->System.out.println(e));
    }
 }
