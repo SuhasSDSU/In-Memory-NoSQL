@@ -1,19 +1,17 @@
 package edu.sdsu.dataType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.sdsu.commands.ICommand;
 import edu.sdsu.exceptions.NoValueException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ArrayType {
+public class ArrayType extends Object{
    private List<Object> listOfValues;
    private Object value;
-   private ICommand command;
+
    public ArrayType(){
       listOfValues = new ArrayList<>();
    }
@@ -23,10 +21,9 @@ public class ArrayType {
    public List<Object> getListOfValues() {
       return listOfValues;
    }
-   public static Object fromString(String value) throws JsonMappingException, JsonProcessingException {
+   public static Object fromString(String value) throws JsonProcessingException {
       ObjectMapper mapper = new ObjectMapper();
-      List<Object> jsonObject = mapper.readValue(value, new TypeReference<List<Object>>(){});
-      return jsonObject;
+      return mapper.readValue(value, new TypeReference<List<Object>>(){});
    }
 
    public void put(Object value) throws NoValueException{

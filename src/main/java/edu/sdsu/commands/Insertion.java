@@ -3,7 +3,7 @@ package edu.sdsu.commands;
 import edu.sdsu.db.Database;
 import java.util.Map;
 
-public class Insertion implements ICommand{
+public class Insertion implements IDatabaseCommand {
    private String key;
    private Object value;
 
@@ -16,17 +16,16 @@ public class Insertion implements ICommand{
    }
 
    @Override
-   public void execute(Database db) {
+   public Object execute(Database db) {
       Map<String, Object> dbCollection = db.getCollection();
-      dbCollection.put(getKey(),  getValue());
+      return dbCollection.put(getKey(),  getValue());
    }
 
    @Override
-   public void undo(Database db) {
+   public Object undo(Database db) {
       Map<String, Object> dbCollection = db.getCollection();
-      dbCollection.remove(getKey());
+      return dbCollection.remove(getKey());
    }
-
    public String getKey() {
       return key;
    }
@@ -41,5 +40,9 @@ public class Insertion implements ICommand{
 
    public void setValue(Object value) {
       this.value = value;
+   }
+
+   public String toString(){
+      return "InsertCommand";
    }
 }

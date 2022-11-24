@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -68,8 +67,6 @@ public class ObjectType {
    public static Object fromString(String value) throws JsonProcessingException {
       ObjectMapper mapper = new ObjectMapper();
       Map<String, Object> jsonObject = mapper.readValue(value, new TypeReference<Map<String,Object>>(){});
-//      Object jsonObject = mapper.readValue(value, Object.class);
-      jsonObject.forEach((key, val)-> out.println("key:"+key+"\t value:"+val));
       return jsonObject;
    }
 

@@ -1,11 +1,17 @@
 package edu.sdsu.commands;
 
 import edu.sdsu.db.Database;
+import edu.sdsu.db.IDatabase;
+
 import java.util.Map;
 
-public class FetchRecord implements ICommand{
+public class FetchRecord implements IDatabaseCommand {
 
    private Object value;
+   private String key;
+   public FetchRecord(String key) {
+      this.key = key;
+   }
 
    public Object getValue() {
       return value;
@@ -23,20 +29,22 @@ public class FetchRecord implements ICommand{
       this.key = key;
    }
 
-   private String key;
-   public FetchRecord(String key){
-      this.key = key;
+   public Object execute(Database db){
+      return getData(db);
    }
-   @Override
-   public void execute(Database db) {
-      Map<String, Object> database = db.getCollection();
-      database.remove(key);
-      setKey(this.key);
-      setValue(database.remove(key));
+
+
+   private Object getData(Database db){
+      return db.getCollection().get(key);
    }
 
    @Override
-   public void undo(Database db) {
-      db.put(getKey(), getValue());
+   public Object undo(Database db) {
+    return null;
+   }
+
+   @Override
+   public String toString() {
+      return "Get Records";
    }
 }

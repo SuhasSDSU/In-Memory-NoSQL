@@ -1,7 +1,9 @@
 package edu.sdsu.db;
+
+import edu.sdsu.commands.FetchRecord;
 import edu.sdsu.commands.Insertion;
 import edu.sdsu.commands.Deletion;
-import edu.sdsu.commands.ICommand;
+import edu.sdsu.commands.IDatabaseCommand;
 import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.dataType.ObjectType;
 import edu.sdsu.exceptions.NoValueException;
@@ -12,15 +14,15 @@ public class Database implements IDatabase {
    Map<String, Object> collection;
    String key;
    Object value;
-   ICommand command;
+   IDatabaseCommand command;
 
-   List<ICommand> commandHistory;
+   List<IDatabaseCommand> commandHistory;
 
-   public List<ICommand> getCommandHistory() {
+   public List<IDatabaseCommand> getCommandHistory() {
       return commandHistory;
    }
 
-   public void setCommandHistory(List<ICommand> commandHistory) {
+   public void setCommandHistory(List<IDatabaseCommand> commandHistory) {
       this.commandHistory = commandHistory;
    }
 
@@ -30,17 +32,19 @@ public class Database implements IDatabase {
    }
 
    @Override
-   public void put(String key, Object value) throws NoValueException{
+   public Object put(String key, Object value) throws NoValueException{
       if(value == null){
          throw new NoValueException("No Value to enter in database");
       }
       command = new Insertion( key, value);
-      command.execute(this);
       commandHistory.add(command);
+      return command.execute(this);
    }
    @Override
    public Object get(String key) {
-      return this.collection.get(key);
+      command = new FetchRecord(key);
+      commandHistory.add(command);
+      return command.execute(this);
    }
 
    @Override

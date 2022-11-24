@@ -3,7 +3,7 @@ package edu.sdsu.commands;
 import edu.sdsu.db.Database;
 import java.util.Map;
 
-public class Deletion implements ICommand{
+public class Deletion implements IDatabaseCommand {
 
    private Object value;
 
@@ -28,15 +28,19 @@ public class Deletion implements ICommand{
       this.key = key;
    }
    @Override
-   public void execute(Database db) {
+   public Object execute(Database db) {
       Map<String, Object> database = db.getCollection();
-      database.remove(key);
       setKey(this.key);
       setValue(database.remove(key));
+      return database.remove(key);
+   }
+   @Override
+   public Object undo(Database db) {
+      return db.put(getKey(), getValue());
    }
 
    @Override
-   public void undo(Database db) {
-      db.put(getKey(), getValue());
+   public String toString() {
+      return "Deletion";
    }
 }
