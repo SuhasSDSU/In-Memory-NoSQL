@@ -116,9 +116,13 @@ public class Database implements IDatabase {
       return command.execute(this);
    }
 
-   public Object deleteSnapShot(){
+   public Object recover(){
       ICommand command = new DeleteSnapShot();
       return command.execute(this);
+   }
+
+   public void getCursor(String key){
+
    }
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Transaction implements ITransaction {
-//   private DatabaseMemento db;
+   //   private DatabaseMemento db;
    private Database db;
    private List<Map<String, Object>> stateOfDatabase;
    private Object value;

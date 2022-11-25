@@ -2,11 +2,11 @@
  * http://www.eli.sdsu.edu/courses/fall22/cs635/assignments/Assignment3.pdf
  */
 /*
-* Need to Implement
-* 1) Implement Pattern
-* 2) Confirm doubts
-* 3) Check the way data is to be displayed
-* */
+ * Need to Implement
+ * 1) Implement Pattern
+ * 2) Confirm doubts
+ * 3) Check the way data is to be displayed
+ * */
 package edu.sdsu;
 
 
