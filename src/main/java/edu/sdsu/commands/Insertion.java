@@ -1,6 +1,7 @@
 package edu.sdsu.commands;
 
 import edu.sdsu.db.Database;
+
 import java.util.Map;
 
 public class Insertion implements ICommand{
@@ -18,14 +19,14 @@ public class Insertion implements ICommand{
    @Override
    public Object execute(Database db) {
       Map<String, Object> dbCollection = db.getCollection();
-      System.out.println(getKey());
       return dbCollection.put(getKey(),  getValue());
    }
 
    @Override
-   public void undo(Database db) {
+   public Object undo(Database db) {
       Map<String, Object> dbCollection = db.getCollection();
       dbCollection.remove(getKey());
+      return null;
    }
 
    public String getKey() {

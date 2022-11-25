@@ -1,17 +1,20 @@
 package edu.sdsu.db;
-import edu.sdsu.commands.Insertion;
-import edu.sdsu.commands.Deletion;
-import edu.sdsu.commands.ICommand;
+import edu.sdsu.commands.*;
 import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.dataType.ObjectType;
 import edu.sdsu.exceptions.NoValueException;
 import edu.sdsu.exceptions.WrongDataType;
+import edu.sdsu.memento.Transaction;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Database implements IDatabase {
    Map<String, Object> collection;
    Object value;
+
    ICommand command;
 
    List<ICommand> commandHistory;
@@ -89,7 +92,6 @@ public class Database implements IDatabase {
       return command.execute(this);
    }
 
-
    public void setValue(Object value) {
       this.value = value;
    }
@@ -97,9 +99,26 @@ public class Database implements IDatabase {
    public Map<String, Object> getCollection() {
       return collection;
    }
+   public void setCollection(Map<String, Object> collection) {
+      this.collection = collection;
+   }
 
    public Transaction getTransaction(){
       return new Transaction(this);
+   }
+
+   public int getDatabaseSize(){
+      return this.collection.size();
+   }
+
+   public Object createSnapShot(){
+      ICommand command = new SnapShotCreation();
+      return command.execute(this);
+   }
+
+   public Object deleteSnapShot(){
+      ICommand command = new DeleteSnapShot();
+      return command.execute(this);
    }
 
 }

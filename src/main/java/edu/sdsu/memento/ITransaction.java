@@ -1,17 +1,19 @@
-package edu.sdsu.db;
+package edu.sdsu.memento;
 
-import edu.sdsu.dataType.ArrayType;
-import edu.sdsu.dataType.ObjectType;
+import edu.sdsu.db.Database;
 import edu.sdsu.exceptions.NoValueException;
 
-//public interface IDatabase<T extends Object> {
-public interface IDatabase {
+public interface ITransaction {
    Database put(String key, Object value) throws NoValueException;
    Object get(String key);
    Integer getInt(String key);
    Double getDouble(String key);
    String getString(String key);
-   ArrayType getArray(String key);
-   ObjectType getObject(String key);
+   Object getArray(String key);
+   Object getObject(String key);
    Object remove(String key);
+   void commit();
+   void abort();
+   boolean isActive();
+
 }

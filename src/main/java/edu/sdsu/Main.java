@@ -14,7 +14,8 @@ import edu.sdsu.commands.ICommand;
 import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.dataType.ObjectType;
 import edu.sdsu.db.Database;
-import edu.sdsu.db.Transaction;
+import edu.sdsu.memento.DatabaseMemento;
+import edu.sdsu.memento.Transaction;
 
 import java.util.*;
 
@@ -22,22 +23,44 @@ public class Main {
    public static void main(String[] args) {
       Database db;
       db = new Database();
-
       try{
-         db.put("Arr", new ArrayType().fromString("[321,2,1]"));
-         db.getArray("Arr").put( new ArrayType("Arr", db).fromString("[321,\"Testing\",1]"));
-         db.getArray("Arr").put( new ObjectType().fromString("{ \"Name\" : \"Suhas\", \"Age\" : \"26\" }"));
+         db.put("Arr2", new ArrayType().fromString("[321,2,1]"));
+         db.getArray("Arr2").put( new ArrayType("Arr", db).fromString("[321,\"Testing\",1]"));
+         db.getArray("Arr2").put( new ObjectType().fromString("{ \"Name\" : \"Suhas\", \"Age\" : \"26\" }"));
 
-         db.put("Object", new ObjectType().fromString("{ \"color\" : \"Black\", \"type\" : \"BMW\" }"));
-         db.getObject("Object").put("NewObject", new ObjectType(db, "Object" ).fromString("{ \"color\" : \"Test\", \"type\" : \"Testing\" }"));
+         db.put("Object2", new ObjectType().fromString("{ \"color\" : \"Black\", \"type\" : \"BMW\" }"));
+         db.getObject("Object2").put("NewObject", new ObjectType(db, "Object" ).fromString("{ \"color\" : \"Test\", \"type\" : \"Testing\" }"));
+
+         db.createSnapShot();
+         db.put("1",1);
+         db.put("2",2);
+         db.put("3",3);
+         db.put("4",4);
+         db.createSnapShot();
+
+         db.put("5",5);
+         db.put("6",6);
+         db.put("7",7);
+         db.put("8",8);
+
       }catch(Exception e){
          e.printStackTrace();
       }
-      Map<String, Object> test = db.getCollection();
-      test.forEach((k, v) -> System.out.println(k+"\t" + v));
 
-      List<ICommand> commandsList = db.getCommandHistory();
+      try{
+//         Transaction t = db.getTransaction();
+//         t.put("Arr", new ArrayType().fromString("[321,2,1]"));
+//         t.getArray("Arr").put( new ArrayType("Arr", db).fromString("[321,\"Testing\",1]"));
+//         t.put("Object", new ObjectType().fromString("{ \"color\" : \"Black\", \"type\" : \"BMW\" }"));
+//         t.commit();
 
-      commandsList.forEach(e->System.out.println(e));
+//         t.put("Arr1", new ArrayType().fromString("[321,2,1]"));
+//         t.getArray("Arr1").put( new ArrayType("Arr", db).fromString("[321,\"Testing\",1]"));
+//         t.put("Object", new ObjectType().fromString("{ \"color\" : \"Black\", \"type\" : \"BMW\" }"));
+//         t.abort();
+      }catch(Exception e){
+         e.printStackTrace();
+      }
+
    }
 }

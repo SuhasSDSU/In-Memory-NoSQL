@@ -38,8 +38,9 @@ public class Deletion implements ICommand{
    }
 
    @Override
-   public void undo(Database db) {
+   public Object undo(Database db) {
       db.put(getKey().toString(), getValue());
+      return null;
    }
 
    @Override
