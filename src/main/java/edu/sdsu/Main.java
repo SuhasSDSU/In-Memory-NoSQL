@@ -47,20 +47,5 @@ public class Main {
          e.printStackTrace();
       }
 
-      try{
-//         Transaction t = db.getTransaction();
-//         t.put("Arr", new ArrayType().fromString("[321,2,1]"));
-//         t.getArray("Arr").put( new ArrayType("Arr", db).fromString("[321,\"Testing\",1]"));
-//         t.put("Object", new ObjectType().fromString("{ \"color\" : \"Black\", \"type\" : \"BMW\" }"));
-//         t.commit();
-
-//         t.put("Arr1", new ArrayType().fromString("[321,2,1]"));
-//         t.getArray("Arr1").put( new ArrayType("Arr", db).fromString("[321,\"Testing\",1]"));
-//         t.put("Object", new ObjectType().fromString("{ \"color\" : \"Black\", \"type\" : \"BMW\" }"));
-//         t.abort();
-      }catch(Exception e){
-         e.printStackTrace();
-      }
-
    }
 }

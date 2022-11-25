@@ -7,7 +7,7 @@ public class DatabaseMemento {
    public DatabaseMemento(Database db){
       this.db = db;
    }
-   public Database getDb() {
+   public Database getState() {
       return db;
    }
 }

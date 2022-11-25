@@ -73,6 +73,7 @@ public class Transaction implements ITransaction {
 
    @Override
    public void commit(){
+      this.db.setCollection(this.db.getCollection());
       isActive = false;
    }
 

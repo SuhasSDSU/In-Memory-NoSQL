@@ -104,21 +104,17 @@ public class Database implements IDatabase {
    }
 
    public Transaction getTransaction(){
-      return new Transaction(this);
+      return new Transaction(new Database());
    }
 
    public int getDatabaseSize(){
       return this.collection.size();
    }
 
-   public Object createSnapShot(){
-      ICommand command = new SnapShotCreation();
-      return command.execute(this);
+   public void createSnapShot(){
    }
 
-   public Object recover(){
-      ICommand command = new DeleteSnapShot();
-      return command.execute(this);
+   public void recover(){
    }
 
    public void getCursor(String key){
