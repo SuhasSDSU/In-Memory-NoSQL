@@ -6,7 +6,6 @@ import edu.sdsu.dataType.ObjectType;
 import edu.sdsu.exceptions.NoValueException;
 import edu.sdsu.exceptions.WrongDataType;
 import edu.sdsu.commands.Transaction;
-import edu.sdsu.observer.IObserver;
 
 import java.io.File;
 import java.util.List;
@@ -20,8 +19,6 @@ public class Database implements IDatabase {
    ICommand command;
    List<ICommand> commandHistory;
 
-   List<IObserver> iObservers;
-
    public List<ICommand> getCommandHistory() {
       return commandHistory;
    }
@@ -29,7 +26,6 @@ public class Database implements IDatabase {
    public Database(){
       this.collection = new HashMap<>();
       this.commandHistory = new ArrayList<>();
-      this.iObservers = new ArrayList<>();
    }
    @Override
    public Database put(String key, Object value) throws NoValueException{
@@ -73,7 +69,7 @@ public class Database implements IDatabase {
 
    @Override
    public ArrayType getArray(String key) {
-      if((this.collection.get(key).getClass().getSimpleName().equals("ArrayList")) == false){
+      if(!(this.collection.get(key).getClass().getSimpleName().equals("ArrayList"))){
          throw new WrongDataType("This is not ArrayType");
       }
       return new ArrayType((List<Object>) this.collection.get(key));
@@ -81,9 +77,9 @@ public class Database implements IDatabase {
 
    @Override
    public ObjectType getObject(String key) {
-      boolean ObjectComparator = this.collection.get(key).getClass().getSimpleName().equals("Object");
-      boolean MapComparator = this.collection.get(key).getClass().getSimpleName().equals("LinkedHashMap");
-      if(! (ObjectComparator || MapComparator)){
+      boolean objectComparator = this.collection.get(key).getClass().getSimpleName().equals("Object");
+      boolean mapComparator = this.collection.get(key).getClass().getSimpleName().equals("LinkedHashMap");
+      if(! (objectComparator || mapComparator)){
          throw new WrongDataType("This is not ObjectType");
       }
       return new ObjectType((Map<String, Object>)this.collection.get(key));
@@ -111,19 +107,26 @@ public class Database implements IDatabase {
       return new Transaction(new Database());
    }
 
-   public int getDatabaseSize(){
+   public int getDataSize(){
       return this.collection.size();
    }
 
    public void createSnapShot(){
       SnapShotCreation snapShotCreation = new SnapShotCreation();
       snapShotCreation.execute(this);
+      commandHistory.add(snapShotCreation);
 
    }
    public static void createSnapShot(File commands, File snapShot){
+      SnapShotCreation snapShotCreation = new SnapShotCreation(commands, snapShot);
+      snapShotCreation.execute(new Database());
    }
 
    public void recover(){
+      // read from the file
+      ReadSnapShot readSnapShot = new ReadSnapShot();
+      readSnapShot.execute(new Database());
+      commandHistory.add(readSnapShot);
    }
 
    public Cursor getCursor(String key){

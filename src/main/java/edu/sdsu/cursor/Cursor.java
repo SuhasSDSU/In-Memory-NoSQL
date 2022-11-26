@@ -9,14 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cursor implements ICursor{
-
-   private List<CursorObserver> observers;
+   private List<CursorObserver> observers = new ArrayList<>();
    private Database state;
    private String key;
-
+   public void setState(Database state) {
+      this.state = state;
+      notifyObservers();
+   }
    public Cursor(Database database){
       this.state = database;
-      this.observers = new ArrayList<>();
    }
 
    public Cursor(Database database, String key){
@@ -54,13 +55,11 @@ public class Cursor implements ICursor{
    public ObjectType getObject(String key) {
       return null;
    }
-
    @Override
    public void addObserver(CursorObserver observer) {
       this.observers.add(observer);
 
    }
-
    public Object value(){
       return this.state.getCollection().get(this.key);
    }
@@ -69,13 +68,7 @@ public class Cursor implements ICursor{
    public void removeObserver(CursorObserver observer) {
       this.observers.remove(observer);
    }
-
    public void notifyObservers(){
       this.observers.forEach(observer -> observer.update(this.state));
    }
-
-   private Object latestValueEntered(){
-      return this.state.getCollection().entrySet().stream().reduce((first, last) -> last).get();
-   }
-
 }

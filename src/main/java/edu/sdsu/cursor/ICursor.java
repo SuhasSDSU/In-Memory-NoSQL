@@ -2,7 +2,6 @@ package edu.sdsu.cursor;
 
 import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.dataType.ObjectType;
-import edu.sdsu.db.Database;
 import edu.sdsu.observer.CursorObserver;
 
 public interface ICursor {

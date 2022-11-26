@@ -26,12 +26,13 @@ public class Main {
       try{
          db.put("Arr2", new ArrayType().fromString("[321,2,1]"));
          db.getArray("Arr2").put( new ArrayType("Arr", db).fromString("[321,\"Testing\",1]"));
+
+         System.out.println("Testing:"+db.getArray("Arr2").getObject(2));
          db.getArray("Arr2").put( new ObjectType().fromString("{ \"Name\" : \"Suhas\", \"Age\" : \"26\" }"));
 
          db.put("Object2", new ObjectType().fromString("{ \"color\" : \"Black\", \"type\" : \"BMW\" }"));
          db.getObject("Object2").put("NewObject", new ObjectType(db, "Object" ).fromString("{ \"color\" : \"Test\", \"type\" : \"Testing\" }"));
 
-         db.createSnapShot();
          db.put("1",1);
          db.put("2",2);
          db.put("3",3);
@@ -44,8 +45,17 @@ public class Main {
          db.put("7",7);
          db.put("9",8);
          db.put("10",8);
-         db.put("11",8);
-         db.put("12",8);
+
+         System.out.println(db.getCursor("5").value());
+         db.put("5",10);
+         db.remove("Object");
+
+         System.out.println(db.getCursor("5").value());
+
+         db.createSnapShot();
+
+         System.out.println("Recovery");
+         db.recover();
 
       }catch(Exception e){
          e.printStackTrace();

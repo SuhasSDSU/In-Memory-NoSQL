@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Utils {
-   public static void writeToFile(Database toSave, String filePath, boolean mode) {
+   public static void storeDatabaseInFile(Database toSave, String filePath, boolean mode) {
 
       BufferedWriter bufferedWriter;
       try {
@@ -31,26 +31,46 @@ public class Utils {
       } catch (IOException e) {
          e.printStackTrace();
       }
-   }// writeToFile
+   }// storeDatabaseInFile
 
-   public static Object readObjectFromFile(String filePath) {
-      Object object = null;
+   public static void storeCommandsInFile(Database toSave, String filePath, boolean mode) {
+
+      BufferedWriter bufferedWriter;
       try {
+         File file = new File(filePath);
+         if (!file.exists()) file.createNewFile();
+         bufferedWriter = new BufferedWriter(new FileWriter(filePath));
+         toSave.getCommandHistory().forEach(command ->
+         {
+            try {
+               bufferedWriter.write(command.toString());
+               bufferedWriter.newLine();
+            } catch (IOException e) {
+               throw new RuntimeException(e);
+            }
+         });
+         bufferedWriter.flush();
+
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+   }// storeCommandsInFile
+
+   public static Object readFromFile(String filePath) {
+      BufferedReader bufferedReader;
+      try {
+         bufferedReader = new BufferedReader(new FileReader(filePath));
          File mementoFile = new File(filePath);
          if (mementoFile.exists()) {
-            FileInputStream fileStream = new FileInputStream(mementoFile);
-            ObjectInputStream objStream = new ObjectInputStream(fileStream);
-            object = objStream.readObject();
-            System.out.println(object);
-            objStream.close();
-            fileStream.close();
+            String st;
+            while ((st = bufferedReader.readLine()) != null){
+               System.out.println(st);
+            }
          }
       } catch (IOException e) {
          e.printStackTrace();
-      } catch (ClassNotFoundException e) {
-         e.printStackTrace();
       }
-      return object;
+      return "Reading from file completed";
    }
    public static List<ICommand> readObjectsFromFile(String filePath) {
       List<ICommand> commands = new ArrayList<>();

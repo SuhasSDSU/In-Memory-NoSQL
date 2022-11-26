@@ -4,16 +4,27 @@ import edu.sdsu.db.Database;
 import edu.sdsu.utils.Constants;
 import edu.sdsu.utils.Utils;
 
+import java.io.File;
+
 
 public class SnapShotCreation implements ICommand{
+
+   File commands, snapShot;
+   public SnapShotCreation(){}
+   public SnapShotCreation(File commands, File snapShot) {
+      this.commands = commands;
+      this.snapShot = snapShot;
+   }
+
    @Override
    public Object execute(Database db) {
-      Utils.writeToFile(db, Constants.DATABASE_FILE_PATH, Boolean.TRUE);
-      return null;
+      Utils.storeDatabaseInFile(db, Constants.DATABASE_FILE_PATH, Boolean.TRUE);
+      Utils.storeCommandsInFile(db, Constants.COMMAND_FILE_PATH, Boolean.TRUE);
+      return "SnapShot Created";
    }
 
    @Override
    public Object undo(Database db) {
-      return null;
+      return "Snapshot deleted";
    }
 }

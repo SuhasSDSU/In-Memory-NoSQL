@@ -87,8 +87,4 @@ public class ArrayType {
       Object[] result = listOfValues.toArray();
       return Arrays.toString(result);
    }
-
-   public void setListOfValues(List<Object> listOfValues) {
-      this.listOfValues = listOfValues;
-   }
 }

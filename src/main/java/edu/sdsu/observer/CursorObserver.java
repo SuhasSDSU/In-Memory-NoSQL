@@ -1,14 +1,13 @@
 package edu.sdsu.observer;
 
 import edu.sdsu.db.Database;
-
 public class CursorObserver implements IObserver{
+   //State
    Database database;
    public CursorObserver(Database database){
       this.database = database;
 
    }
-
    public Database getDatabase() {
       return database;
    }
