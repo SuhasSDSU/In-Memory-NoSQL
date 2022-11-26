@@ -1,11 +1,14 @@
 package edu.sdsu.db;
 import edu.sdsu.commands.*;
+import edu.sdsu.cursor.Cursor;
 import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.dataType.ObjectType;
 import edu.sdsu.exceptions.NoValueException;
 import edu.sdsu.exceptions.WrongDataType;
-import edu.sdsu.memento.Transaction;
+import edu.sdsu.commands.Transaction;
+import edu.sdsu.observer.IObserver;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -14,10 +17,10 @@ import java.util.ArrayList;
 public class Database implements IDatabase {
    Map<String, Object> collection;
    Object value;
-
    ICommand command;
-
    List<ICommand> commandHistory;
+
+   List<IObserver> iObservers;
 
    public List<ICommand> getCommandHistory() {
       return commandHistory;
@@ -26,6 +29,7 @@ public class Database implements IDatabase {
    public Database(){
       this.collection = new HashMap<>();
       this.commandHistory = new ArrayList<>();
+      this.iObservers = new ArrayList<>();
    }
    @Override
    public Database put(String key, Object value) throws NoValueException{
@@ -112,13 +116,18 @@ public class Database implements IDatabase {
    }
 
    public void createSnapShot(){
+      SnapShotCreation snapShotCreation = new SnapShotCreation();
+      snapShotCreation.execute(this);
+
+   }
+   public static void createSnapShot(File commands, File snapShot){
    }
 
    public void recover(){
    }
 
-   public void getCursor(String key){
-
+   public Cursor getCursor(String key){
+         return new Cursor(this, key);
    }
 
 }

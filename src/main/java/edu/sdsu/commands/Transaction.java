@@ -1,6 +1,6 @@
-package edu.sdsu.memento;
+package edu.sdsu.commands;
 
-import edu.sdsu.commands.ICommand;
+import edu.sdsu.commands.ITransaction;
 import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.dataType.ObjectType;
 import edu.sdsu.db.Database;
@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Transaction implements ITransaction {
-   //   private DatabaseMemento db;
    private Database db;
    private List<Map<String, Object>> stateOfDatabase;
    private Object value;

@@ -1,4 +1,4 @@
-package edu.sdsu.memento;
+package edu.sdsu.commands;
 
 import edu.sdsu.db.Database;
 import edu.sdsu.exceptions.NoValueException;

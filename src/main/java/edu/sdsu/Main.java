@@ -10,14 +10,14 @@
 package edu.sdsu;
 
 
-import edu.sdsu.commands.ICommand;
+import edu.sdsu.cursor.Cursor;
 import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.dataType.ObjectType;
 import edu.sdsu.db.Database;
-import edu.sdsu.memento.DatabaseMemento;
-import edu.sdsu.memento.Transaction;
+import edu.sdsu.observer.CursorObserver;
+import edu.sdsu.observer.IObserver;
 
-import java.util.*;
+import java.util.Observer;
 
 public class Main {
    public static void main(String[] args) {
@@ -36,12 +36,16 @@ public class Main {
          db.put("2",2);
          db.put("3",3);
          db.put("4",4);
-         db.createSnapShot();
+
+         db.put("Object", new ArrayType().fromString("[123, 321, 12]"));
 
          db.put("5",5);
          db.put("6",6);
          db.put("7",7);
-         db.put("8",8);
+         db.put("9",8);
+         db.put("10",8);
+         db.put("11",8);
+         db.put("12",8);
 
       }catch(Exception e){
          e.printStackTrace();

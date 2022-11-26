@@ -1,17 +1,14 @@
 package edu.sdsu.commands;
 
 import edu.sdsu.db.Database;
-import edu.sdsu.memento.DatabaseCareTaker;
-import edu.sdsu.memento.SnapShotHandler;
+import edu.sdsu.utils.Constants;
+import edu.sdsu.utils.Utils;
 
-// Originator
+
 public class SnapShotCreation implements ICommand{
    @Override
    public Object execute(Database db) {
-      SnapShotHandler snapShotHandler = new SnapShotHandler();
-      snapShotHandler.setState(db);
-      DatabaseCareTaker databaseCareTaker = new DatabaseCareTaker();
-      databaseCareTaker.add(snapShotHandler.saveToMemento());
+      Utils.writeToFile(db, Constants.DATABASE_FILE_PATH, Boolean.TRUE);
       return null;
    }
 

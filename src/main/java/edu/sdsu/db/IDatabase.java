@@ -3,6 +3,7 @@ package edu.sdsu.db;
 import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.dataType.ObjectType;
 import edu.sdsu.exceptions.NoValueException;
+import edu.sdsu.observer.IObserver;
 
 //public interface IDatabase<T extends Object> {
 public interface IDatabase {
@@ -14,4 +15,5 @@ public interface IDatabase {
    ArrayType getArray(String key);
    ObjectType getObject(String key);
    Object remove(String key);
+
 }
