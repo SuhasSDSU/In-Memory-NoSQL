@@ -20,9 +20,9 @@ public class CursorTest {
          e.printStackTrace();
       }
    }
-   @DisplayName("Test the Check the value using cursor")
+   @DisplayName("Check the value using cursor")
    @Test
-   public void displayData(){
+   public void checkCursorContents(){
       assertEquals(3, db.getDataSize());
    }
 }

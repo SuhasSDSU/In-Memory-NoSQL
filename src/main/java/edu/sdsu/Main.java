@@ -1,23 +1,9 @@
-/*
- * http://www.eli.sdsu.edu/courses/fall22/cs635/assignments/Assignment3.pdf
- */
-/*
- * Need to Implement
- * 1) Implement Pattern
- * 2) Confirm doubts
- * 3) Check the way data is to be displayed
- * */
 package edu.sdsu;
 
 
-import edu.sdsu.cursor.Cursor;
 import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.dataType.ObjectType;
 import edu.sdsu.db.Database;
-import edu.sdsu.observer.CursorObserver;
-import edu.sdsu.observer.IObserver;
-
-import java.util.Observer;
 
 public class Main {
    public static void main(String[] args) {
@@ -37,7 +23,7 @@ public class Main {
          db.put("3",3);
          db.put("4",4);
 
-         db.put("Object", new ArrayType().fromString("[123, 321, 12]"));
+         db.getObject("Object").put( "db", new ArrayType().fromString("[123, 321, 12]"));
 
          db.put("5",5);
          db.put("6",6);
@@ -45,12 +31,10 @@ public class Main {
          db.put("9",8);
          db.put("10",8);
 
-         System.out.println(db.getCursor("5").value());
+//         System.out.println(db.getCursor("5").value());
          db.put("5",10);
-         db.remove("Object");
 
-         db.createSnapShot();
-
+//         db.createSnapShot();
 //         db.getCommandHistory().forEach(e -> System.out.println(e));
 
          db.recover();

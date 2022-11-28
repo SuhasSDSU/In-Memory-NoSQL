@@ -30,4 +30,10 @@ public class TransactionTest {
       test.commit();
       assertEquals(2, db.getDataSize());
    }
+
+   @DisplayName("check the exceptions that would be caused by abort and contents")
+   @Test
+   public void checkAbort(){
+
+   }
 }
