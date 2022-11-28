@@ -47,6 +47,6 @@ public class Insertion implements ICommand{
 
    @Override
    public String toString() {
-      return "Insertion";
+      return "Insert "+ getKey() + ":"+getValue();
    }
 }

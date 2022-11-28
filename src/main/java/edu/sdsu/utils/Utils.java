@@ -1,11 +1,8 @@
 package edu.sdsu.utils;
 
-import edu.sdsu.commands.ICommand;
 import edu.sdsu.db.Database;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class Utils {
@@ -71,26 +68,6 @@ public class Utils {
          e.printStackTrace();
       }
       return "Reading from file completed";
-   }
-   public static List<ICommand> readObjectsFromFile(String filePath) {
-      List<ICommand> commands = new ArrayList<>();
-      FileInputStream fileIn = null;
-      try {
-         fileIn = new FileInputStream(filePath);
-         while (true) {
-            ObjectInputStream input = new ObjectInputStream(fileIn);
-            commands.add((ICommand)input.readObject());
-         }
-      } catch (EOFException e) {
-         try {
-            fileIn.close();
-         } catch (IOException i) {
-            i.printStackTrace();
-         }
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
-      return commands;
    }
 
    public static void delete(String filePath) {

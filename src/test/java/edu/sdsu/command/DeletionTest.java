@@ -13,9 +13,9 @@ public class DeletionTest {
    public void init(){
       db = new Database();
       try{
-//         db.put("Key1", 12);
-//         db.put("key2", "13");
-//         db.put("key3", new Integer[]{1,2,34});
+         db.put("Key1", 12);
+         db.put("key2", "13");
+         db.put("key3", new Integer[]{1,2,34});
       } catch (Exception e){
          e.printStackTrace();
       }
@@ -24,6 +24,6 @@ public class DeletionTest {
    @DisplayName("Check the value using key")
    @Test
    public void checkDelete(){
-      db.remove("Key1");
+      assertEquals(12, db.remove("Key1"));
    }
 }

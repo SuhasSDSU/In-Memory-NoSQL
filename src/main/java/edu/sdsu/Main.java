@@ -27,7 +27,6 @@ public class Main {
          db.put("Arr2", new ArrayType().fromString("[321,2,1]"));
          db.getArray("Arr2").put( new ArrayType("Arr", db).fromString("[321,\"Testing\",1]"));
 
-         System.out.println("Testing:"+db.getArray("Arr2").getObject(2));
          db.getArray("Arr2").put( new ObjectType().fromString("{ \"Name\" : \"Suhas\", \"Age\" : \"26\" }"));
 
          db.put("Object2", new ObjectType().fromString("{ \"color\" : \"Black\", \"type\" : \"BMW\" }"));
@@ -50,12 +49,9 @@ public class Main {
          db.put("5",10);
          db.remove("Object");
 
-         System.out.println(db.getCursor("5").value());
-
          db.createSnapShot();
 
-         System.out.println("Recovery");
-         db.recover();
+         db.getCommandHistory().forEach(e -> System.out.println(e));
 
       }catch(Exception e){
          e.printStackTrace();

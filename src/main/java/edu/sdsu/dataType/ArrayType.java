@@ -75,7 +75,7 @@ public class ArrayType {
 
    public Object getObject(Integer index) {
       if(!(this.listOfValues.get(index).getClass().getSimpleName().equals("Object"))){
-         throw new WrongDataType("This is not Object");
+         throw new WrongDataType("This is not an Object");
       }
       return this.listOfValues.get(index);
    }

@@ -12,10 +12,6 @@ public class Cursor implements ICursor{
    private List<CursorObserver> observers = new ArrayList<>();
    private Database state;
    private String key;
-   public void setState(Database state) {
-      this.state = state;
-      notifyObservers();
-   }
    public Cursor(Database database){
       this.state = database;
    }
@@ -33,27 +29,27 @@ public class Cursor implements ICursor{
 
    @Override
    public Integer getInt(String key) {
-      return null;
+      return state.getInt(key);
    }
 
    @Override
    public Double getDouble(String key) {
-      return null;
+      return state.getDouble(key);
    }
 
    @Override
    public String getString(String key) {
-      return null;
+      return state.getString(key);
    }
 
    @Override
    public ArrayType getArray(String key) {
-      return null;
+      return state.getArray(key);
    }
 
    @Override
    public ObjectType getObject(String key) {
-      return null;
+      return state.getObject(key);
    }
    @Override
    public void addObserver(CursorObserver observer) {

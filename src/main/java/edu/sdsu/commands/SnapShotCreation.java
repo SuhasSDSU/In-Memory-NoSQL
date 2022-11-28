@@ -25,6 +25,8 @@ public class SnapShotCreation implements ICommand{
 
    @Override
    public Object undo(Database db) {
+      Utils.delete(Constants.COMMAND_FILE_PATH);
+      Utils.delete(Constants.DATABASE_FILE_PATH);
       return "Snapshot deleted";
    }
 }

@@ -28,9 +28,4 @@ public class InsertionTest {
       String actual = String.valueOf(db.getArray("Array1").getClass());
       assertEquals(expected, actual);
    }
-   @DisplayName("Check the value using key")
-   @Test
-   public void shouldBeTwelve(){
-      assertEquals(12, db.get("Key1"));
-   }
 }

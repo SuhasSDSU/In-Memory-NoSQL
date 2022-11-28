@@ -114,7 +114,6 @@ public class Database implements IDatabase {
    public void createSnapShot(){
       SnapShotCreation snapShotCreation = new SnapShotCreation();
       snapShotCreation.execute(this);
-      commandHistory.add(snapShotCreation);
 
    }
    public static void createSnapShot(File commands, File snapShot){
@@ -126,7 +125,11 @@ public class Database implements IDatabase {
       // read from the file
       ReadSnapShot readSnapShot = new ReadSnapShot();
       readSnapShot.execute(new Database());
-      commandHistory.add(readSnapShot);
+   }
+
+   public static void recover(File commands, File snapShot){
+      ReadSnapShot readSnapShot = new ReadSnapShot(commands, snapShot);
+      readSnapShot.execute(new Database());
    }
 
    public Cursor getCursor(String key){

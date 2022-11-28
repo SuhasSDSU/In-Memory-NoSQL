@@ -40,11 +40,11 @@ public class Deletion implements ICommand{
    @Override
    public Object undo(Database db) {
       db.put(getKey().toString(), getValue());
-      return null;
+      return "Delete Undo";
    }
 
    @Override
    public String toString() {
-      return "Deletion";
+      return "Deleted:" + getKey();
    }
 }

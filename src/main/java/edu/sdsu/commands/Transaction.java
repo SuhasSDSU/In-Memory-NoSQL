@@ -11,7 +11,6 @@ import java.util.Map;
 
 public class Transaction implements ITransaction {
    private Database db;
-   private List<Map<String, Object>> stateOfDatabase;
    private Object value;
 
    private boolean isActive;
@@ -19,7 +18,6 @@ public class Transaction implements ITransaction {
    public Transaction(Database db){
       this.db = db;
       this.isActive = true;
-      this.stateOfDatabase = new ArrayList<>();
    }
 
    @Override
