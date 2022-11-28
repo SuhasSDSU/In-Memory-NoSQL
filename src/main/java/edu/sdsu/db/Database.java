@@ -33,7 +33,6 @@ public class Database implements IDatabase {
          throw new NoValueException("No Value to enter in database");
       } else {
          command = new Insertion(key, value);
-         commandHistory.add(command);
          command.execute(this);
       }
       return this;
@@ -88,7 +87,6 @@ public class Database implements IDatabase {
    @Override
    public Object remove(String key){
       command = new Deletion(key);
-      commandHistory.add(command);
       return command.execute(this);
    }
 
@@ -104,7 +102,7 @@ public class Database implements IDatabase {
    }
 
    public Transaction getTransaction(){
-      return new Transaction(new Database());
+      return new Transaction(this);
    }
 
    public int getDataSize(){

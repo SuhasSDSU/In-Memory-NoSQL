@@ -16,9 +16,8 @@ public class ReadSnapShot implements ICommand{
    }
    @Override
    public Object execute(Database db) {
-      Utils.readFromFile(Constants.DATABASE_FILE_PATH);
       Utils.readFromFile(Constants.COMMAND_FILE_PATH);
-      return "SnapShot Created";
+      return "Recovery Completed";
    }
 
    @Override

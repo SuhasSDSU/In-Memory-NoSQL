@@ -44,7 +44,6 @@ public class ArrayType {
       }
       this.listOfValues.add(value);
       ICommand command = new Insertion(this.key, getListOfValues());
-      dbRef.getCommandHistory().add(command);
       return command.execute(this.dbRef);
    }
 

@@ -51,11 +51,13 @@ public class Main {
 
          db.createSnapShot();
 
-         db.getCommandHistory().forEach(e -> System.out.println(e));
+//         db.getCommandHistory().forEach(e -> System.out.println(e));
 
+         db.recover();
       }catch(Exception e){
          e.printStackTrace();
       }
+
 
    }
 }

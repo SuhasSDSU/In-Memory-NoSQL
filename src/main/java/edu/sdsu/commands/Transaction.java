@@ -1,17 +1,14 @@
 package edu.sdsu.commands;
 
-import edu.sdsu.commands.ITransaction;
 import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.dataType.ObjectType;
 import edu.sdsu.db.Database;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Transaction implements ITransaction {
    private Database db;
-   private Object value;
 
    private boolean isActive;
 
@@ -47,7 +44,7 @@ public class Transaction implements ITransaction {
    @Override
    public String getString(String key) {
       if(isActive == false)throw new UnsupportedOperationException("Cannot perform operations");
-      return "";
+      return db.getString(key);
    }
 
    @Override
@@ -70,7 +67,7 @@ public class Transaction implements ITransaction {
 
    @Override
    public void commit(){
-      this.db.setCollection(this.db.getCollection());
+      db.setCollection(this.db.getCollection());
       isActive = false;
    }
 
@@ -83,9 +80,5 @@ public class Transaction implements ITransaction {
       return isActive;
    }
 
-   public Object getValue() {
-      if(isActive == false)throw new UnsupportedOperationException("Cannot perform operations");
-      return value;
-   }
 
 }

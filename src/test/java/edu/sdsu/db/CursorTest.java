@@ -1,15 +1,13 @@
 package edu.sdsu.db;
 
-
 import edu.sdsu.dataType.ArrayType;
-import edu.sdsu.dataType.ObjectType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DatabaseTest {
+public class CursorTest {
    Database db;
    @BeforeEach
    public void init(){
@@ -22,11 +20,9 @@ public class DatabaseTest {
          e.printStackTrace();
       }
    }
-   @DisplayName("Test the contents of Db")
+   @DisplayName("Test the Check the value using cursor")
    @Test
    public void displayData(){
       assertEquals(3, db.getDataSize());
    }
-
-
 }

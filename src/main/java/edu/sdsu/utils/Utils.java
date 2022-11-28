@@ -71,7 +71,14 @@ public class Utils {
    }
 
    public static void delete(String filePath) {
-      new File(filePath).delete();
+      try{
+         PrintWriter writer = new PrintWriter(filePath);
+         writer.print("");
+         writer.close();
+      }catch (FileNotFoundException e){
+         e.printStackTrace();
+      }
+
    }
 
 }

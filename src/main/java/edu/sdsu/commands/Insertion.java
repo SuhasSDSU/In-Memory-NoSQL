@@ -1,6 +1,8 @@
 package edu.sdsu.commands;
 
 import edu.sdsu.db.Database;
+import edu.sdsu.utils.Constants;
+import edu.sdsu.utils.Utils;
 
 import java.util.Map;
 
@@ -19,6 +21,8 @@ public class Insertion implements ICommand{
    @Override
    public Object execute(Database db) {
       Map<String, Object> dbCollection = db.getCollection();
+      db.getCommandHistory().add(this);
+      Utils.storeCommandsInFile(db, Constants.COMMAND_FILE_PATH, Boolean.TRUE);
       return dbCollection.put(getKey(),  getValue());
    }
 
