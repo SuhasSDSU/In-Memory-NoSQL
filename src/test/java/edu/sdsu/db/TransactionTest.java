@@ -1,9 +1,7 @@
 package edu.sdsu.db;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import edu.sdsu.commands.Transaction;
 import edu.sdsu.dataType.ArrayType;
-import edu.sdsu.exceptions.NoValueException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,6 +41,7 @@ public class TransactionTest {
          transaction.put("Test", "Value");
       });
 
+      assertEquals(2, db.getDataSize());
       String expected  = "class java.lang.UnsupportedOperationException";
       assertEquals(expected, exception.getClass().toString());
    }

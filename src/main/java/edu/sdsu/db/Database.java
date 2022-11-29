@@ -5,7 +5,6 @@ import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.dataType.ObjectType;
 import edu.sdsu.exceptions.NoValueException;
 import edu.sdsu.exceptions.WrongDataType;
-import edu.sdsu.commands.Transaction;
 
 import java.io.File;
 import java.util.List;
@@ -59,7 +58,7 @@ public class Database implements IDatabase {
    }
 
    @Override
-   public String getString(String key) {
+   public String getString(String key) throws WrongDataType {
       if(!(this.collection.get(key).getClass().getSimpleName().equals("String"))){
          throw new WrongDataType("This is not String");
       }
@@ -67,15 +66,20 @@ public class Database implements IDatabase {
    }
 
    @Override
-   public ArrayType getArray(String key) {
+   public ArrayType getArray(String key) throws WrongDataType {
       if(!(this.collection.get(key).getClass().getSimpleName().equals("ArrayList"))){
          throw new WrongDataType("This is not ArrayType");
       }
       return new ArrayType((List<Object>) this.collection.get(key));
    }
 
+   /**
+    * Checks the datatype provided which would be in either Object or LinkedHashMap
+    * @param key
+    * @return
+    */
    @Override
-   public ObjectType getObject(String key) {
+   public ObjectType getObject(String key) throws WrongDataType{
       boolean objectComparator = this.collection.get(key).getClass().getSimpleName().equals("Object");
       boolean mapComparator = this.collection.get(key).getClass().getSimpleName().equals("LinkedHashMap");
       if(! (objectComparator || mapComparator)){
@@ -123,7 +127,7 @@ public class Database implements IDatabase {
    public void recover(){
       // read from the file
       ReadSnapShot readSnapShot = new ReadSnapShot();
-      readSnapShot.execute(new Database());
+      readSnapShot.execute(this);
    }
 
    public static void recover(File commands, File snapShot){

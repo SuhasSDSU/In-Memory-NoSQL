@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SnapShotTesting {
    Database db;
@@ -29,7 +28,16 @@ public class SnapShotTesting {
       String commandSnapShotFile = Constants.COMMAND_FILE_PATH;
       String databaseSnapShotFile = Constants.DATABASE_FILE_PATH;
       db.createSnapShot();
-      assert(new File(commandSnapShotFile).exists());
       assert(new File(databaseSnapShotFile).exists());
+      assert(new File(commandSnapShotFile).length() == 0);
    }
+   @DisplayName("Testing working of Snapshot")
+   @Test
+   public void checkCommandFile(){
+      init();
+      db.recover();
+      File file = new File(Constants.COMMAND_FILE_PATH);
+      assert(file.length() != 0);
+   }
+
 }

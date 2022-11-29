@@ -1,7 +1,7 @@
 package edu.sdsu.exception;
 
 import edu.sdsu.db.Database;
-import edu.sdsu.exceptions.NoValueException;
+import edu.sdsu.exceptions.WrongDataType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,11 +17,11 @@ public class DataTypeTest {
       db.put("Key1", 12);
       db.put("key2", "13");
    }
-   @DisplayName("No Value exception")
+   @DisplayName("Throw wrong data type as the key holds a value of another datatype")
    @Test
-   public void shouldThrowNoValue(){
-      NoValueException exception = assertThrows(NoValueException.class, () -> {
-         db.getArray("key1");
+   public void shouldThrowWrongDataType(){
+      WrongDataType exception = assertThrows(WrongDataType.class, () -> {
+         db.getArray("Key1");
       });
 
       String expected  = "class edu.sdsu.exceptions.WrongDataType";

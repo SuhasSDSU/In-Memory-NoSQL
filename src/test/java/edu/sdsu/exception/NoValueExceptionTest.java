@@ -16,7 +16,7 @@ public class NoValueExceptionTest {
       db.put("Key1", 12);
       db.put("key2", "13");
    }
-   @DisplayName("No Value exception")
+   @DisplayName("Throws NoValue exception")
    @Test
    public void shouldThrowNoValue(){
       NoValueException exception = assertThrows(NoValueException.class, () -> {

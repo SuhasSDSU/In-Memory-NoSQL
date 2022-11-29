@@ -1,8 +1,7 @@
-package edu.sdsu.commands;
+package edu.sdsu.db;
 
 import edu.sdsu.dataType.ArrayType;
 import edu.sdsu.dataType.ObjectType;
-import edu.sdsu.db.Database;
 
 import java.util.List;
 import java.util.Map;

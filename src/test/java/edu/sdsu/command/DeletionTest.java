@@ -26,4 +26,5 @@ public class DeletionTest {
    public void checkDelete(){
       assertEquals(12, db.remove("Key1"));
    }
+
 }

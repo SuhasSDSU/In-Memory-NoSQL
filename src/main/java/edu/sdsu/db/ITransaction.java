@@ -1,6 +1,6 @@
-package edu.sdsu.commands;
+package edu.sdsu.db;
 
-import edu.sdsu.db.Database;
+
 import edu.sdsu.exceptions.NoValueException;
 
 public interface ITransaction {

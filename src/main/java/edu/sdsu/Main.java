@@ -1,3 +1,9 @@
+/***
+ * @Author: Suhas Pindiproli
+ * REDID: 824816168
+ * Assignment-3 : Implement In-Memory Database using Design Patterns
+ */
+
 package edu.sdsu;
 
 import edu.sdsu.dataType.ArrayType;
@@ -18,8 +24,6 @@ public class Main {
          db.put("2",2);
          db.put("3",3);
          db.put("4",4);
-         System.out.println(db.getObject("Object2").length());
-//         db.getObject("Object").put( "db", new ArrayType().fromString("[123, 321, 12]"));
          db.put("5",5);
          db.put("6",6);
          db.put("7",7);

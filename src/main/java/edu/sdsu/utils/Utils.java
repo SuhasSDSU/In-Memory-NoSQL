@@ -70,6 +70,7 @@ public class Utils {
       return "Reading from file completed";
    }
 
+   // Empty's the content of file
    public static void delete(String filePath) {
       try{
          PrintWriter writer = new PrintWriter(filePath);

@@ -32,6 +32,13 @@ public class ArrayType {
    public List<Object> getListOfValues() {
       return listOfValues;
    }
+
+   /**
+    * Used Jackson API to convert the string into a arraylist
+    * @param value
+    * @return
+    * @throws JsonProcessingException
+    */
    public static Object fromString(String value) throws JsonProcessingException {
       ObjectMapper mapper = new ObjectMapper();
       List<Object> jsonObject = mapper.readValue(value, new TypeReference<List<Object>>(){});
@@ -49,7 +56,6 @@ public class ArrayType {
 
    public Object remove(int key){
       ICommand command = new Deletion(key);
-      dbRef.getCommandHistory().add(command);
       return command.execute(this.dbRef);
    }
 
