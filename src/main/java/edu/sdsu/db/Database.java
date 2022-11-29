@@ -97,6 +97,7 @@ public class Database implements IDatabase {
    public Map<String, Object> getCollection() {
       return collection;
    }
+   //set this as protected
    public void setCollection(Map<String, Object> collection) {
       this.collection = collection;
    }

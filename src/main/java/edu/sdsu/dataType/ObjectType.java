@@ -27,6 +27,7 @@ public class ObjectType {
    public ObjectType(){
       this.objects = new HashMap<>();
    }
+
    public ObjectType(Map<String, Object> map){
       this.objects = map;
    }
@@ -73,7 +74,7 @@ public class ObjectType {
    }
 
    public int length(){
-      return 0;
+      return objects.size();
    }
 
    @Override
@@ -92,14 +93,12 @@ public class ObjectType {
 
    public Object put(String key, Object value){
       objects.put(key, value);
-      ICommand command = new Insertion(this.key, getObjects());
-      dbRef.getCommandHistory().add(command);
+      ICommand command = new Insertion(key, getObjects());
       return command.execute(dbRef);
    }
 
    public Object remove(String key){
       ICommand command = new Deletion(key);
-      dbRef.getCommandHistory().add(command);
       return command.execute(this.dbRef);
    }
 

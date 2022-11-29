@@ -1,10 +1,9 @@
 package edu.sdsu.db;
 
-import edu.sdsu.dataType.ArrayType;
+import edu.sdsu.cursor.Cursor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CursorTest {
@@ -12,17 +11,14 @@ public class CursorTest {
    @BeforeEach
    public void init(){
       db = new Database();
-      try {
-         db.put("key3", new Integer(13));
-         db.put("Arr2", new ArrayType().fromString("[321,2,1]"));
-         db.getArray("Arr2").put( new ArrayType("Arr", db).fromString("[321,\"Testing\",1]"));
-      }catch (Exception e){
-         e.printStackTrace();
-      }
+      db.put("key3", 13);
    }
    @DisplayName("Check the value using cursor")
    @Test
    public void checkCursorContents(){
-      assertEquals(3, db.getDataSize());
+      Cursor cursor = db.getCursor("key3");
+      assertEquals(13,cursor.value());
+      db.put("key3", "Test");
+      assertEquals("Test", cursor.value());
    }
 }
